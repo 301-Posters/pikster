@@ -1,0 +1,28 @@
+{
+  "name": "pikster",
+  "version": "1.0.0",
+  "description": "A fun, simple, and user-specific application that makes book recommendations based on the users genre preference. The user will also be provided with the ability to read the book in the application. ## Project Detail 1. The main page will display images/preferences and user login 2. The user profile will be stored in a database 3. Once a preference is selected they will be brough to the library page where a book recommendation is shown. 4. When the user clicks on the book it will open to be read 5. When navigating away from this page the page is saved in the database 6. When the about us link is pressed the user is brough to the about us page 7. The user can then go back to the home page to change their preferences and or get a new recommendation for a book 8.  The footer link can be clicked which is a link to the github page ## Project Members 1. Tyler 2. Harlen 3. Andrew 4. Ally ## How to Run this App ## User Stories   1. As a user I want to be able to log into my profile, so that I can view my library.   **Given** that a user wants a new recommendation for a book   **When** the user clicks on a series of images   **Then** the page will display a book recommendation based on the user selections",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/301-Posters/pikster.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/301-Posters/pikster/issues"
+  },
+  "homepage": "https://github.com/301-Posters/pikster#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "pg": "^7.17.1",
+    "superagent": "^5.2.1"
+  }
+}
