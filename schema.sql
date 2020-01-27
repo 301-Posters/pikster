@@ -13,14 +13,12 @@ CREATE TABLE books (
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     usernames VARCHAR(255),
-    library_id INT not null
 );
 
 CREATE TABLE books_in_libraries (
-    library_id SERIAL PRIMARY KEY,
+    user_id INT not null,
     book_id INT not null,
-    bookmark INT not null,
-    user INT not null
+    bookmark INT not null
 );  
 
 
