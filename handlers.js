@@ -13,7 +13,7 @@ const generateMovie = (request, response) => {
     .then(results => {
       // console.log(results.body);
       const responseObj = results.body.results.map(movie => new Movie(movie));
-      response.render('EJS/detail.ejs', {movies: responseObj});
+      response.render('EJS/detail.ejs', { movies: responseObj });
     })
     .catch(error => {
       console.error(error);
@@ -21,21 +21,17 @@ const generateMovie = (request, response) => {
 }
 
 const createAcc = (request, response) => {
+
+  let message = request.query.error;
+  if (request.query.error){
+    message = 'Please login or create a user';
+    response.status(200).render('EJS/createacc.ejs', {message: message});
+  }
+
 }
 
 const generateLibrary = (request, response) => {
 
-  // let SQL = 'INSERT INTO movies_in_libraries (user_id, movie_id, black_list) VALUES ($1, $2, $3);';
-
-  // let safeWords = [user_id, movie_id, false];
-
-
-  // return client.query(SQL, safeWords)
-  // // .then(result => response.send('/library', console.log('hello', result)))
-  // .then(result => response.send(`/library/${result.rows[0].user_id}`))
-  // .catch(() => {
-  //   errorHandler ('Library not in database', request, response);
-  // });
 request.session.user = {
   id: 12,
 }
@@ -52,15 +48,23 @@ request.session.user = {
       // errorHandler('So sorry, your movie library is supposed to show up!', request, response);
     });
 
+}
+
+const renderLoginPage = (request,response) => {
+  response.render('EJS/createAcc', {user: `Welcome`});
 
 }
 
 const secureLogin = (request, response) => {
-  request.session.selectedMovie = request.params.id;
+  request.session.user = request.body.user;
+  request.session.password = request.body.password;
+  
   if (!request.session.user) {
     response.redirect('/createacc/?error=credentials');
   } else {
+
     response.redirect('/library');
+
   }
 
 }
@@ -78,11 +82,11 @@ const updateLibrary = (request, response) => {
 
 ////// ERROR HANDLER FUNCTIONS //////
 
-function notFoundHandler(request, response){
+function notFoundHandler(request, response) {
   response.status(404).send('This route does not exist');
 }
 
-function errorHandler(error, request, response){
+function errorHandler(error, request, response) {
   console.log('Error', error);
   response.status(500).send(error);
 }
@@ -95,7 +99,7 @@ function getTrendingMovies(request, response) {
     .then(data => {
       const responseObj = data.body.results.map(movie => new Movie(movie));
       const responseMovies = responseObj.filter(movie => movie.title);
-      response.status(200).render('EJS/index.ejs', {movies: responseMovies});
+      response.status(200).render('EJS/index.ejs', { movies: responseMovies });
     })
     .catch(() => errorHandler('Something went wrong', response));
 }
@@ -123,6 +127,7 @@ module.exports = {
   updateLibrary: updateLibrary,
   errorHandler: errorHandler,
   notFoundHandler: notFoundHandler,
-  getTrendingMovies: getTrendingMovies
+  getTrendingMovies: getTrendingMovies,
+  renderLoginPage: renderLoginPage
 
 };

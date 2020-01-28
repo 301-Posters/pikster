@@ -48,7 +48,9 @@ app.get('/createacc', routeHandlers.createAcc);
 app.get('/library', routeHandlers.generateLibrary);
 
 //check the login credentials on the request, then redirect to /library or /
-app.post('/securelogin/:id', routeHandlers.secureLogin);
+app.get('/securelogin/:id', routeHandlers.renderLoginPage);
+app.post('/securelogin', routeHandlers.secureLogin);
+
 
 //delete movie from users library
 app.delete('/movie', routeHandlers.deleteMovie);
