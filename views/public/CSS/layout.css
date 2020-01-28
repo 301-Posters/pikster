@@ -30,9 +30,62 @@ footer h1{
 
 .flex-container {
   display: flex;
-  justify-content:space-between ;
+  /* justify-content:space-between ; */
   padding: 0px 12px 0px 12px;
-  width: 540px;
-  height: 400px;
-  box-shadow: 0 0 8px 8px white inset;
+  /* width: 540px; */
+  height: 1000px;
+  /* box-shadow: 0 0 8px 8px white inset; */
 } 
+
+body{
+  background-image: url('../img/cinema.jpg');
+  width: 960px;
+  height: 540px;
+  z-index: -2;
+  
+}
+#aboutUs{
+  color: blue;
+  width: 100px;
+  height: 50px;
+  box-shadow: 0px clear;
+  transform: translateY(5px);
+  padding: 2px 2px;
+  font-size: 2px;
+  text-align: center;
+	cursor: pointer;
+	/* margin-top: 300px; */
+  outline: none;
+  color: #fff;
+  background-color: clear;
+  border: none;
+  border-radius: 1px;
+	box-shadow: 0px black;
+	max-height: calc(100% - 5px);
+}
+
+.flex-container{
+  /* background-image: url('../img/deadpolreru.png'); */
+  /* width: 300px; */
+  /* height: auto; */
+  align-content: ;
+  z-index: 1;
+
+  transform: translate(-50%, -50%);
+}
+
+
+.nav {
+  padding: 15px 25px;
+	font-size: 20px;
+	text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: rgba(0, 0, 0, 0.726);
+  background-color: rgb(188, 198, 202);
+  border: none;
+  border-radius: 15px;
+	box-shadow: 0 9px 0 2px rgb(58, 49, 49);
+	/* float: right; */
+	margin: -50px 0px 0px 50px;
+}
