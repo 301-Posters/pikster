@@ -5,11 +5,13 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const PORT = process.env.PORT || 3001;
-
-const superagent = require('superagent');
-const pg = require('pg');
-const client = new pg.Client(process.env.DATABASE_URL);
 const cors = require('cors');
+
+// On the server, we'll use EJS to do templates
+app.set('view engine', 'ejs');
+// The location of our EJS Templates
+app.set('views', './views');
+
 
 ////////////////////////CUSTOM MODULES///////////////////////////////////
 const routeHandlers = require('./handlers');
@@ -20,9 +22,7 @@ app.use(cors());
 ////////////////////////// ROUTES ////////////////////////////////
 
 //hit api, get list of popular movies, render recommended movies
-app.get('/', (request, response) => {
-response.send('Hello')
-}) 
+app.get('/', routeHandlers.getTrendingMovies); 
 
 //parse user-selected movie for TMDb ID and hit TMDb for "recommendations", Randomly pick one of the results.
 //send to user by rendering newMovie.ejs

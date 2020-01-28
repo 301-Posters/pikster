@@ -1,6 +1,23 @@
+'use strict';
+
+///////////////// DEPENDENCIES ///////////////////
+
+
+require('dotenv').config();
+// Express server library
+const express = require('express');
+// Create an application using express
+const app = express();
+const pg = require('pg');
+const superagent = require('superagent');
+// On the server, we'll use EJS to do templates
+app.set('view engine', 'ejs');
+// The location of our EJS Templates
+app.set('views', './views');
+
+
 ////////////////////////MODULES////////////////////////
 
-const superagent = require('superagent');
 
 
 const generateMovie = (request, response) => {
@@ -32,20 +49,16 @@ const updateLibrary = (request, response) => {
 
 }
 
-function getTrendingMovies(request, resonse) {
+function getTrendingMovies(request, response) {
   let key = process.env.TMDB_API_KEY;
   const trendingUrl = `https://api.themoviedb.org/3/trending/all/day?api_key=${key}`;
   superagent.get(trendingUrl)
     .then(data => {
-      data.results.map(movie => {
-        let currentMovie = new Movie(movie);
-        let movieUrl = `https://api.themoviedb.org/3/movie/${currentMovie.movieId}?api_key=${key}`;
-        superagent.get(movieUrl)
-          .then(data => {
-            currentMovie.genre = data.genres[0].name;
-          })
-      })
+      const responseObj = data.body.results.map(movie => new Movie(movie));
+      const responseMovies = responseObj.filter(movie => movie.title);
+      response.status(200).render('EJS/index.ejs', {movies: responseMovies});
     })
+    .catch(() => errorHandler('Something went wrong', response));
 }
 
 
@@ -57,11 +70,17 @@ function Movie(movie) {
   this.image_url = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
 }
 
+// Error Handlers
+function errorHandler(string, response) {
+  response.status(500).send(string);
+}
+
 module.exports = {
   generateMovie: generateMovie,
   createAcc: createAcc,
   generateLibrary: generateLibrary,
   secureLogin: secureLogin,
   deleteMovie: deleteMovie,
-  updateLibrary: updateLibrary
+  updateLibrary: updateLibrary,
+  getTrendingMovies: getTrendingMovies
 };
