@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 3001;
 const superagent = require('superagent');
 const pg = require('pg');
 const client = new pg.Client(process.env.DATABASE_URL);
+client.on('error', err => console.error(err));
+
 const cors = require('cors');
 
 ////////////////////////CUSTOM MODULES///////////////////////////////////
@@ -43,7 +45,15 @@ app.delete('/movie', routeHandlers.deleteMovie);
 //change blacklist status for individual movie
 app.put('/update', routeHandlers.updateLibrary);
 
+// error handlers routes
+app.use('*', routeHandlers.notFoundHandler);
+app.use(routeHandlers.errorHandler);
 
-app.listen(PORT, () => console.log(`We are listening on port ${PORT}!`))
+
+client.connect()
+  .then(() => {
+    app.listen(PORT, ()=> (console.log(`We are listening on port ${PORT}!`)));
+  })
+  .catch(err => console.log('UHH OHHH!!!', err));
 
 module.exports = {server: app};
