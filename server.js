@@ -37,13 +37,22 @@ app.get('/createacc', routeHandlers.createAcc);
 app.get('/library', routeHandlers.generateLibrary);
 
 //check the login credentials on the request, then redirect to /library or /
-app.post('/securelogin', routeHandlers.secureLogin);
+app.post('/securelogin/:id', routeHandlers.secureLogin);
 
 //delete movie from users library
 app.delete('/movie', routeHandlers.deleteMovie);
 
 //change blacklist status for individual movie
 app.put('/update', routeHandlers.updateLibrary);
+
+
+// function authorize (request, response, next){
+//     if (!request.session.user) {
+//         response.redirect('/createacc');
+//     } else {
+//         next();
+//     }
+// }
 
 
 app.listen(PORT, () => console.log(`We are listening on port ${PORT}!`))

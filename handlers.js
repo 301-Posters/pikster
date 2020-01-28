@@ -5,10 +5,13 @@ const app = express();
 const superagent = require('superagent');
 require('dotenv').config();
 const pg = require('pg');
+const session = require('express-session')
 const client = new pg.Client(process.env.DATABASE_URL);
 
 app.set('view egine', 'ejs');
 app.set('views', './views');
+app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: "789vbnmk", resave: true, saveUninitialized: true }));
 
 
 
@@ -36,8 +39,7 @@ const generateLibrary = (request, response) => {
 }
 
 const secureLogin = (request, response) => {
-  
-
+  request.session.selectedMovie = request.params.id;
 }
 
 const deleteMovie = (request, response) => {
