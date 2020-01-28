@@ -30,11 +30,13 @@ const createAcc = (request, response) => {
 
 }
 
+//display the library page, use session.user to render user specific info (name etc).
+//if there is a new book, it is in the query.
 const generateLibrary = (request, response) => {
+//queries: newBook. The TMDB id of the new book.
+//params: none
+//body: none
 
-request.session.user = {
-  id: 12,
-}
   let user = request.session.user.id;
   let SQL2 = 'SELECT * from movies INNER JOIN movies_in_libraries ON movies.id = movies_in_libraries.movie_id WHERE $1 = movies_in_libraries.user_id;';
   let values = [user];
@@ -51,13 +53,17 @@ request.session.user = {
 }
 
 const renderLoginPage = (request,response) => {
-  response.render('EJS/createAcc', {user: `Welcome`});
+  if (request.session.user) {
+    response.redirect(`/library?newBook=${req.params.id}`)
+  } else {
+    response.render('EJS/createAcc', {message: `Welcome`});
+  }
 
 }
 
 const secureLogin = (request, response) => {
-  request.session.user = request.body.user;
-  request.session.password = request.body.password;
+  // request.session.user = request.body.user;
+  // request.session.password = request.body.password;
   
   if (!request.session.user) {
     response.redirect('/createacc/?error=credentials');
@@ -129,5 +135,4 @@ module.exports = {
   notFoundHandler: notFoundHandler,
   getTrendingMovies: getTrendingMovies,
   renderLoginPage: renderLoginPage
-
 };

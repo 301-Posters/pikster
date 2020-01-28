@@ -11,7 +11,8 @@ CREATE TABLE movies (
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    usernames VARCHAR(255)
+    username VARCHAR(255),
+    password VARCHAR(255)
 );
 
 CREATE TABLE movies_in_libraries (
@@ -21,7 +22,7 @@ CREATE TABLE movies_in_libraries (
 );  
 
 
-insert into users (id, usernames) VALUES (12, 'bobbaker');
+insert into users (id, username, password) VALUES (12, 'bob', 'bob');
 
 insert into movies_in_libraries (user_id, movie_id, black_list) values (12, 1, false);
 insert into movies_in_libraries (user_id, movie_id, black_list) values (12, 2, false);

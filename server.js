@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 3001;
 const session = require('express-session');
 const client = require('./database.js');
 
-const superagent = require('superagent');
 
 client.on('error', err => console.error(err));
 
