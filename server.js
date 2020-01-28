@@ -7,7 +7,6 @@ const cors = require('cors');
 require('dotenv').config();
 const PORT = process.env.PORT || 3001;
 
-
 // On the server, we'll use EJS to do templates
 app.set('view engine', 'ejs');
 // The location of our EJS Templates
