@@ -7,10 +7,19 @@ const cors = require('cors');
 require('dotenv').config();
 const PORT = process.env.PORT || 3001;
 
+
+const superagent = require('superagent');
+const pg = require('pg');
+const client = new pg.Client(process.env.DATABASE_URL);
+client.on('error', err => console.error(err));
+
+const cors = require('cors');
+
 // On the server, we'll use EJS to do templates
 app.set('view engine', 'ejs');
 // The location of our EJS Templates
 app.set('views', './views');
+
 
 
 ////////////////////////CUSTOM MODULES///////////////////////////////////
@@ -47,6 +56,10 @@ app.delete('/movie', routeHandlers.deleteMovie);
 //change blacklist status for individual movie
 app.put('/update', routeHandlers.updateLibrary);
 
+// error handlers routes
+app.use('*', routeHandlers.notFoundHandler);
+app.use(routeHandlers.errorHandler);
+
 
 // function authorize (request, response, next){
 //     if (!request.session.user) {
@@ -55,8 +68,11 @@ app.put('/update', routeHandlers.updateLibrary);
 //         next();
 //     }
 // }
+client.connect()
+  .then(() => {
+    app.listen(PORT, ()=> (console.log(`We are listening on port ${PORT}!`)));
+  })
+  .catch(err => console.log('UHH OHHH!!!', err));
 
-
-app.listen(PORT, () => console.log(`We are listening on port ${PORT}!`))
 
 module.exports = {server: app};
