@@ -1,4 +1,7 @@
-////////////////////////MODULES////////////////////////
+'use strict';
+
+///////////////// DEPENDENCIES ///////////////////
+
 
 const express = require('express');
 const app = express();
@@ -74,6 +77,7 @@ const updateLibrary = (request, response) => {
 
 }
 
+
 ////// ERROR HANDLER FUNCTIONS //////
 
 function notFoundHandler(request, response){
@@ -85,11 +89,17 @@ function errorHandler(error, request, response){
   response.status(500).send(error);
 }
 
-function getTrendingMovies(request, resonse) {
+function getTrendingMovies(request, response) {
+
   let key = process.env.TMDB_API_KEY;
   const trendingUrl = `https://api.themoviedb.org/3/trending/all/day?api_key=${key}`;
   superagent.get(trendingUrl)
-    .then(data => {})
+    .then(data => {
+      const responseObj = data.body.results.map(movie => new Movie(movie));
+      const responseMovies = responseObj.filter(movie => movie.title);
+      response.status(200).render('EJS/index.ejs', {movies: responseMovies});
+    })
+    .catch(() => errorHandler('Something went wrong', response));
 }
 
 
@@ -101,6 +111,11 @@ function Movie(movie) {
   this.image_url = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
 }
 
+// Error Handlers
+function errorHandler(string, response) {
+  response.status(500).send(string);
+}
+
 module.exports = {
   generateMovie: generateMovie,
   createAcc: createAcc,
@@ -110,4 +125,6 @@ module.exports = {
   updateLibrary: updateLibrary,
   errorHandler: errorHandler,
   notFoundHandler: notFoundHandler
+  getTrendingMovies: getTrendingMovies
+
 };
