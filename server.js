@@ -7,12 +7,10 @@ const cors = require('cors');
 require('dotenv').config();
 const PORT = process.env.PORT || 3001;
 const session = require('express-session');
-
-
+const client = require('./database.js');
 
 const superagent = require('superagent');
-const pg = require('pg');
-const client = new pg.Client(process.env.DATABASE_URL);
+
 client.on('error', err => console.error(err));
 
 // On the server, we'll use EJS to do templates
@@ -77,4 +75,6 @@ client.connect()
   .catch(err => console.log('UHH OHHH!!!', err));
 
 
-module.exports = {server: app};
+// module.exports = {
+//   server: app
+// };

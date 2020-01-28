@@ -3,19 +3,8 @@
 ///////////////// DEPENDENCIES ///////////////////
 
 
-const express = require('express');
-const app = express();
 const superagent = require('superagent');
-require('dotenv').config();
-const pg = require('pg');
-
-const client = new pg.Client(process.env.DATABASE_URL);
-
-app.set('view engine', 'ejs');
-app.set('views', './views');
-
-
-
+const client = require('./database.js');
 
 const generateMovie = (request, response) => {
   console.log(request.params);
@@ -35,29 +24,34 @@ const createAcc = (request, response) => {
 }
 
 const generateLibrary = (request, response) => {
+
   // let SQL = 'INSERT INTO movies_in_libraries (user_id, movie_id, black_list) VALUES ($1, $2, $3);';
 
-  // let safeValues = [user_id, movie_id, black_list];
+  // let safeWords = [user_id, movie_id, false];
 
 
-  // return client.query(SQL, safeValues)
+  // return client.query(SQL, safeWords)
   // // .then(result => response.send('/library', console.log('hello', result)))
   // .then(result => response.send(`/library/${result.rows[0].user_id}`))
   // .catch(() => {
   //   errorHandler ('Library not in database', request, response);
   // });
+request.session.user = {
+  id: 12,
+}
+  let user = request.session.user.id;
+  let SQL2 = 'SELECT * from movies INNER JOIN movies_in_libraries ON movies.id = movies_in_libraries.movie_id WHERE $1 = movies_in_libraries.user_id;';
+  let values = [user];
+  client.query(SQL2, values)
+    .then(results => {
+      console.log(results.rows);
+      response.render('EJS/library.ejs', { results: results.rows })
+    })
+    .catch(err => {
+      console.log(err);
+      // errorHandler('So sorry, your movie library is supposed to show up!', request, response);
+    });
 
-  
-  // let SQL2 = 'SELECT * FROM movies_in_libraries;';
-
-  // return client.query(SQL2)
-  //   .then(results => {
-  //     response.render('./EJS/library.ejs', console.log('hello', results))
-  //     // response.render('./EJS/library.ejs', { results: results.rows })
-  //   })
-  //   .catch(() => {
-  //     errorHandler('So sorry, your movie library is supposed to show up!', request, response);
-  //   });
 
 }
 
@@ -66,7 +60,7 @@ const secureLogin = (request, response) => {
   if (!request.session.user) {
     response.redirect('/createacc/?error=credentials');
   } else {
-    response.redirect(507, '/library');
+    response.redirect('/library');
   }
 
 }
