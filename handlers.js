@@ -3,23 +3,6 @@
 ///////////////// DEPENDENCIES ///////////////////
 
 
-<<<<<<< HEAD
-require('dotenv').config();
-// Express server library
-const express = require('express');
-// Create an application using express
-const app = express();
-const pg = require('pg');
-const superagent = require('superagent');
-// On the server, we'll use EJS to do templates
-app.set('view engine', 'ejs');
-// The location of our EJS Templates
-app.set('views', './views');
-
-
-////////////////////////MODULES////////////////////////
-
-=======
 const express = require('express');
 const app = express();
 const superagent = require('superagent');
@@ -32,7 +15,6 @@ app.set('view egine', 'ejs');
 app.set('views', './views');
 app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: "789vbnmk", resave: true, saveUninitialized: true }));
->>>>>>> 7eb78aa827bc294416c20f6e444593b50420c6d5
 
 
 
@@ -77,16 +59,12 @@ function getTrendingMovies(request, response) {
   let key = process.env.TMDB_API_KEY;
   const trendingUrl = `https://api.themoviedb.org/3/trending/all/day?api_key=${key}`;
   superagent.get(trendingUrl)
-<<<<<<< HEAD
     .then(data => {
       const responseObj = data.body.results.map(movie => new Movie(movie));
       const responseMovies = responseObj.filter(movie => movie.title);
       response.status(200).render('EJS/index.ejs', {movies: responseMovies});
     })
     .catch(() => errorHandler('Something went wrong', response));
-=======
-    .then(data => {})
->>>>>>> 7eb78aa827bc294416c20f6e444593b50420c6d5
 }
 
 
