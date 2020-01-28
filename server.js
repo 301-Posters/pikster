@@ -6,12 +6,7 @@ const app = express();
 const cors = require('cors');
 require('dotenv').config();
 const PORT = process.env.PORT || 3001;
-<<<<<<< HEAD
-const cors = require('cors');
-=======
 
-
->>>>>>> 7eb78aa827bc294416c20f6e444593b50420c6d5
 
 // On the server, we'll use EJS to do templates
 app.set('view engine', 'ejs');
@@ -32,13 +27,7 @@ app.set('views', './views');
 ////////////////////////// ROUTES ////////////////////////////////
 
 //hit api, get list of popular movies, render recommended movies
-<<<<<<< HEAD
 app.get('/', routeHandlers.getTrendingMovies); 
-=======
-app.get('/', (request, response) => {
-response.send('Hello') 
-}) 
->>>>>>> 7eb78aa827bc294416c20f6e444593b50420c6d5
 
 //parse user-selected movie for TMDb ID and hit TMDb for "recommendations", Randomly pick one of the results.
 //send to user by rendering newMovie.ejs
