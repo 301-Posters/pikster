@@ -19,9 +19,9 @@
   </header>
 
   <main>
-    <form action="/createacc"method="get">
-      <input type="text" placeholder="User Name" required>
-      <input type="text" placeholder="password" required>
+    <form action="/securelogin" method="POST">
+      <input type="text" name="user" placeholder="User Name" required>
+      <input type="password" name="password" placeholder="password" required>
       <button type="submit">Submit</button>
     </form>
   </main>

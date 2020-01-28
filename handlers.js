@@ -32,14 +32,19 @@ const generateMovie = (request, response) => {
 }
 
 const createAcc = (request, response) => {
-  let message = credentials;
-  if (request.query.error === message){
-    message = 'You need to create a login!'
+  let message = request.query.error;
+  if (request.query.error){
+    message = 'Please login or create a user';
+    response.status(200).render('EJS/createacc.ejs', {message: message});
   }
-  response.status(200).render('EJS/createacc.ejs', {message: message});
 }
 
 const generateLibrary = (request, response) => {
+console.log(request.session.user)
+response.render('EJS/library')
+
+
+
   // let SQL = 'INSERT INTO movies_in_libraries (user_id, movie_id, black_list) VALUES ($1, $2, $3);';
 
   // let safeValues = [user_id, movie_id, black_list];
@@ -66,12 +71,19 @@ const generateLibrary = (request, response) => {
 
 }
 
+const renderLoginPage = (request,response) => {
+  response.render('EJS/createAcc', {user: `Welcome`});
+
+}
+
 const secureLogin = (request, response) => {
-  request.session.selectedMovie = request.params.id;
+  request.session.user = request.body.user;
+  request.session.password = request.body.password;
+  
   if (!request.session.user) {
     response.redirect('/createacc/?error=credentials');
   } else {
-    response.redirect(507, '/library');
+    response.redirect('/library');
   }
 }
 
@@ -133,6 +145,7 @@ module.exports = {
   updateLibrary: updateLibrary,
   errorHandler: errorHandler,
   notFoundHandler: notFoundHandler,
-  getTrendingMovies: getTrendingMovies
+  getTrendingMovies: getTrendingMovies,
+  renderLoginPage: renderLoginPage
 
 };
