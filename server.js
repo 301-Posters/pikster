@@ -3,30 +3,32 @@
 ///////////////// DEPENDENCIES ///////////////////
 const express = require('express');
 const app = express();
+const cors = require('cors');
 require('dotenv').config();
 const PORT = process.env.PORT || 3001;
 
-const superagent = require('superagent');
-const pg = require('pg');
-const client = new pg.Client(process.env.DATABASE_URL);
-const cors = require('cors');
+
 
 ////////////////////////CUSTOM MODULES///////////////////////////////////
 const routeHandlers = require('./handlers');
 
+
+///////////////////////CONFIGURE EXPRESS//////////////////////////////
 app.use(cors());
+app.set('view egine', 'ejs');
+app.set('views', './views');
 
 
 ////////////////////////// ROUTES ////////////////////////////////
 
 //hit api, get list of popular movies, render recommended movies
 app.get('/', (request, response) => {
-response.send('Hello')
+response.send('Hello') 
 }) 
 
 //parse user-selected movie for TMDb ID and hit TMDb for "recommendations", Randomly pick one of the results.
 //send to user by rendering newMovie.ejs
-app.post('/generatemovie', routeHandlers.generateMovie);
+app.post('/generatemovie/:id', routeHandlers.generateMovie);
 
 //render create account page. (tbd based on front end needs)
 app.get('/createacc', routeHandlers.createAcc);
