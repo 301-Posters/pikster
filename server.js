@@ -6,14 +6,14 @@ const app = express();
 const cors = require('cors');
 require('dotenv').config();
 const PORT = process.env.PORT || 3001;
+const session = require('express-session');
+
 
 
 const superagent = require('superagent');
 const pg = require('pg');
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.error(err));
-
-const cors = require('cors');
 
 // On the server, we'll use EJS to do templates
 app.set('view engine', 'ejs');
@@ -31,6 +31,8 @@ app.use(cors());
 app.set('view egine', 'ejs');
 app.set('views', './views');
 
+app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: "789vbnmk", resave: true, saveUninitialized: true }));
 
 ////////////////////////// ROUTES ////////////////////////////////
 

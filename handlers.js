@@ -8,13 +8,12 @@ const app = express();
 const superagent = require('superagent');
 require('dotenv').config();
 const pg = require('pg');
-const session = require('express-session')
+
 const client = new pg.Client(process.env.DATABASE_URL);
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
-app.use(express.urlencoded({ extended: true }));
-app.use(session({ secret: "789vbnmk", resave: true, saveUninitialized: true }));
+
 
 
 
@@ -65,6 +64,9 @@ const generateLibrary = (request, response) => {
 
 const secureLogin = (request, response) => {
   request.session.selectedMovie = request.params.id;
+  if (!request.session.user) {
+    
+  }
 }
 
 const deleteMovie = (request, response) => {
@@ -91,7 +93,7 @@ function errorHandler(error, request, response){
 
 function getTrendingMovies(request, response) {
 
-  let key = process.env.TMDB_API_KEY;
+  let key = process.env.MOVIE_API_KEY;
   const trendingUrl = `https://api.themoviedb.org/3/trending/all/day?api_key=${key}`;
   superagent.get(trendingUrl)
     .then(data => {
@@ -124,7 +126,7 @@ module.exports = {
   deleteMovie: deleteMovie,
   updateLibrary: updateLibrary,
   errorHandler: errorHandler,
-  notFoundHandler: notFoundHandler
+  notFoundHandler: notFoundHandler,
   getTrendingMovies: getTrendingMovies
 
 };
