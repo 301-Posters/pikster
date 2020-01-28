@@ -32,7 +32,6 @@ const generateMovie = (request, response) => {
 }
 
 const createAcc = (request, response) => {
-  console.log('some stuff');
 }
 
 const generateLibrary = (request, response) => {
@@ -65,8 +64,11 @@ const generateLibrary = (request, response) => {
 const secureLogin = (request, response) => {
   request.session.selectedMovie = request.params.id;
   if (!request.session.user) {
-    
+    response.redirect('/createacc/?error=credentials');
+  } else {
+    response.redirect(507, '/library');
   }
+
 }
 
 const deleteMovie = (request, response) => {
