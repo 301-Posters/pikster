@@ -17,7 +17,7 @@ const generateMovie = (request, response) => {
   let key = process.env.MOVIE_API_KEY;
   superagent.get(`https://api.themoviedb.org/3/movie/${request.params.id}/similar?api_key=${key}&language=en-US&page=1`)
     .then(results => {
-      console.log(results.body);
+      // console.log(results.body);
       const responseObj = results.body.results.map(movie => new Movie(movie));
       response.render('EJS/detail.ejs', {movies: responseObj});
     })
@@ -36,7 +36,7 @@ const generateLibrary = (request, response) => {
 }
 
 const secureLogin = (request, response) => {
-  console.log('some stuff');
+  
 
 }
 
