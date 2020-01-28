@@ -1,11 +1,32 @@
 ////////////////////////MODULES////////////////////////
 
+const express = require('express');
+const app = express();
 const superagent = require('superagent');
+require('dotenv').config();
+const pg = require('pg');
+const session = require('express-session')
+const client = new pg.Client(process.env.DATABASE_URL);
+
+app.set('view egine', 'ejs');
+app.set('views', './views');
+app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: "789vbnmk", resave: true, saveUninitialized: true }));
+
 
 
 const generateMovie = (request, response) => {
-  console.log('some stuff');
-
+  console.log(request.params);
+  let key = process.env.MOVIE_API_KEY;
+  superagent.get(`https://api.themoviedb.org/3/movie/${request.params.id}/similar?api_key=${key}&language=en-US&page=1`)
+    .then(results => {
+      // console.log(results.body);
+      const responseObj = results.body.results.map(movie => new Movie(movie));
+      response.render('EJS/detail.ejs', {movies: responseObj});
+    })
+    .catch(error => {
+      console.error(error);
+    })
 }
 
 const createAcc = (request, response) => {
@@ -18,8 +39,7 @@ const generateLibrary = (request, response) => {
 }
 
 const secureLogin = (request, response) => {
-  console.log('some stuff');
-
+  request.session.selectedMovie = request.params.id;
 }
 
 const deleteMovie = (request, response) => {
@@ -36,16 +56,7 @@ function getTrendingMovies(request, resonse) {
   let key = process.env.TMDB_API_KEY;
   const trendingUrl = `https://api.themoviedb.org/3/trending/all/day?api_key=${key}`;
   superagent.get(trendingUrl)
-    .then(data => {
-      data.results.map(movie => {
-        let currentMovie = new Movie(movie);
-        let movieUrl = `https://api.themoviedb.org/3/movie/${currentMovie.movieId}?api_key=${key}`;
-        superagent.get(movieUrl)
-          .then(data => {
-            currentMovie.genre = data.genres[0].name;
-          })
-      })
-    })
+    .then(data => {})
 }
 
 

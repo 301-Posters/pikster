@@ -17,12 +17,21 @@
   <header>
 
   </header>
-
- 
-
   <main>
-    
-
+      <section class="trendingMovies">
+          <% movies.forEach(movie => { %>
+            <div class="movie">
+              <header>
+                <img src="<%= movie.image_url %>">
+                <h2><%= movie.title %></h2>
+                <p><%= movie.descript %></p>
+              </header>
+              <form action="/securelogin/<%= movie.movieId %>" method="POST">
+                <button>Add to Library</button>
+              </form>
+            </div>
+          <% }) %>
+        </section>
   </main>
   <footer>
   </footer>
