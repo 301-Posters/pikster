@@ -24,7 +24,7 @@ const generateMovie = (request, response) => {
     .then(results => {
       // console.log(results.body);
       const responseObj = results.body.results.map(movie => new Movie(movie));
-      response.render('EJS/detail.ejs', {movies: responseObj});
+      response.render('EJS/detail.ejs', { movies: responseObj });
     })
     .catch(error => {
       console.error(error);
@@ -32,7 +32,11 @@ const generateMovie = (request, response) => {
 }
 
 const createAcc = (request, response) => {
-  console.log('some stuff');
+  let message = credentials;
+  if (request.query.error === message){
+    message = 'You need to create a login!'
+  }
+  response.status(200).render('EJS/createacc.ejs', {message: message});
 }
 
 const generateLibrary = (request, response) => {
@@ -48,7 +52,7 @@ const generateLibrary = (request, response) => {
   //   errorHandler ('Library not in database', request, response);
   // });
 
-  
+
   // let SQL2 = 'SELECT * FROM movies_in_libraries;';
 
   // return client.query(SQL2)
@@ -65,7 +69,9 @@ const generateLibrary = (request, response) => {
 const secureLogin = (request, response) => {
   request.session.selectedMovie = request.params.id;
   if (!request.session.user) {
-    
+    response.redirect('/createacc/?error=credentials');
+  } else {
+    response.redirect(507, '/library');
   }
 }
 
@@ -82,11 +88,11 @@ const updateLibrary = (request, response) => {
 
 ////// ERROR HANDLER FUNCTIONS //////
 
-function notFoundHandler(request, response){
+function notFoundHandler(request, response) {
   response.status(404).send('This route does not exist');
 }
 
-function errorHandler(error, request, response){
+function errorHandler(error, request, response) {
   console.log('Error', error);
   response.status(500).send(error);
 }
@@ -99,7 +105,7 @@ function getTrendingMovies(request, response) {
     .then(data => {
       const responseObj = data.body.results.map(movie => new Movie(movie));
       const responseMovies = responseObj.filter(movie => movie.title);
-      response.status(200).render('EJS/index.ejs', {movies: responseMovies});
+      response.status(200).render('EJS/index.ejs', { movies: responseMovies });
     })
     .catch(() => errorHandler('Something went wrong', response));
 }

@@ -15,15 +15,17 @@
 <body>
 
   <header>
-
+    <h2><%= message %></h2>
   </header>
 
- 
-
   <main>
-    
-
+    <form action="/createacc"method="get">
+      <input type="text" placeholder="User Name" required>
+      <input type="text" placeholder="password" required>
+      <button type="submit">Submit</button>
+    </form>
   </main>
+
   <footer>
   </footer>
 
