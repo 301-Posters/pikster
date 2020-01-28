@@ -28,6 +28,7 @@
 
 
   <main>
+<<<<<<< HEAD:views/EJS/index.ejs
     <section class="trendingMovies">
       <% movies.forEach(movie => { %>
         <div class="movie">
@@ -43,11 +44,17 @@
       <% }) %>
     </section>
 
+=======
+    <button class="moive-img" >
+>>>>>>> 7eb78aa827bc294416c20f6e444593b50420c6d5:views/EJS/index.html
   </main>
   <footer>
     <h1>Team Name Here</h1>
-    <img src="../public/img/Octocat.png" width="35px">
-    <h1>https://github.com/301-Posters</h1>
+    <form action="/generateMovie/<%=result.movieId%>" ></form>
+    <button>
+      <img src="tiny_birthday_cake.png" alt="">
+      Submit
+    </button>    <h1>https://github.com/301-Posters</h1>
   </footer>
 
 

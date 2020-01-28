@@ -3,6 +3,7 @@
 ///////////////// DEPENDENCIES ///////////////////
 
 
+<<<<<<< HEAD
 require('dotenv').config();
 // Express server library
 const express = require('express');
@@ -18,11 +19,35 @@ app.set('views', './views');
 
 ////////////////////////MODULES////////////////////////
 
+=======
+const express = require('express');
+const app = express();
+const superagent = require('superagent');
+require('dotenv').config();
+const pg = require('pg');
+const session = require('express-session')
+const client = new pg.Client(process.env.DATABASE_URL);
+
+app.set('view egine', 'ejs');
+app.set('views', './views');
+app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: "789vbnmk", resave: true, saveUninitialized: true }));
+>>>>>>> 7eb78aa827bc294416c20f6e444593b50420c6d5
+
 
 
 const generateMovie = (request, response) => {
-  console.log('some stuff');
-
+  console.log(request.params);
+  let key = process.env.MOVIE_API_KEY;
+  superagent.get(`https://api.themoviedb.org/3/movie/${request.params.id}/similar?api_key=${key}&language=en-US&page=1`)
+    .then(results => {
+      // console.log(results.body);
+      const responseObj = results.body.results.map(movie => new Movie(movie));
+      response.render('EJS/detail.ejs', {movies: responseObj});
+    })
+    .catch(error => {
+      console.error(error);
+    })
 }
 
 const createAcc = (request, response) => {
@@ -35,8 +60,7 @@ const generateLibrary = (request, response) => {
 }
 
 const secureLogin = (request, response) => {
-  console.log('some stuff');
-
+  request.session.selectedMovie = request.params.id;
 }
 
 const deleteMovie = (request, response) => {
@@ -53,12 +77,16 @@ function getTrendingMovies(request, response) {
   let key = process.env.TMDB_API_KEY;
   const trendingUrl = `https://api.themoviedb.org/3/trending/all/day?api_key=${key}`;
   superagent.get(trendingUrl)
+<<<<<<< HEAD
     .then(data => {
       const responseObj = data.body.results.map(movie => new Movie(movie));
       const responseMovies = responseObj.filter(movie => movie.title);
       response.status(200).render('EJS/index.ejs', {movies: responseMovies});
     })
     .catch(() => errorHandler('Something went wrong', response));
+=======
+    .then(data => {})
+>>>>>>> 7eb78aa827bc294416c20f6e444593b50420c6d5
 }
 
 
