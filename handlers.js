@@ -32,11 +32,13 @@ const generateMovie = (request, response) => {
 }
 
 const createAcc = (request, response) => {
+
   let message = request.query.error;
   if (request.query.error){
     message = 'Please login or create a user';
     response.status(200).render('EJS/createacc.ejs', {message: message});
   }
+
 }
 
 const generateLibrary = (request, response) => {
@@ -83,8 +85,11 @@ const secureLogin = (request, response) => {
   if (!request.session.user) {
     response.redirect('/createacc/?error=credentials');
   } else {
+
     response.redirect('/library');
+
   }
+
 }
 
 const deleteMovie = (request, response) => {
