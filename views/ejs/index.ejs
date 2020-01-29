@@ -27,9 +27,12 @@
   </header>
 
   <main>
-    <section class="trendingMovies">
+    <!--main container that holds all the tiles-->
+    <section class="tile-container">
+
+      <!-- each tile.-->
       <% movies.forEach(movie => { %>
-        <div class="movie">
+        <div class="movie-tile">
           <header>
             <h2><%= movie.title %></h2>
           </header>
@@ -40,6 +43,7 @@
           </form>
         </div>
       <% }) %>
+
     </section>
 
   </main>
