@@ -1,6 +1,7 @@
 
 /* container for holding all of the tiles. Takes up 95% width of page.*/
 .tile-container {
+  margin-top: 100px;
   width: 95%;
   display: flex;
   flex-wrap: wrap;
