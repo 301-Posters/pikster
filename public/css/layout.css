@@ -33,7 +33,7 @@ width: 100%;
   min-height: 300px;
   padding-top: 80px;
   flex-flow: row wrap;
-  height
+
 }
 .background img{
   margin-top: -100px;
@@ -41,12 +41,11 @@ width: 100%;
 
 .background{
   background-image: url(../img/profileBackground.jpg);
-  height:;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-position: 50% 50%;
-  background-image:  z-index: inherit 1;
+  z-index: inherit 1;
 }
 
 
@@ -63,7 +62,7 @@ width: 100%;
 }
 
 .header{
-  background-image: url(../img/curtain.jpg);
+
   display: flex;
   justify-content:space-evenly; 
   /* justify-content: space-around; */
@@ -99,9 +98,9 @@ footer {
   flex-direction: row;
   width: 300%;
   height: 120px;
-    }
+}
 
-.homeButton, 
+
 .switchUser{
 	padding: 2px 2px;
   font-size: 2px;

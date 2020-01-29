@@ -19,9 +19,9 @@
 
   </header>
   <main>
-      <section class="trendingMovies">
+      <section class="tile-container">
           <% movies.forEach(movie => { %>
-            <div class="movie">
+            <div class="movie-tile">
               <header>
                 <img src="<%= movie.image_url %>">
                 <h2><%= movie.title %></h2>
