@@ -2,7 +2,7 @@ body{
 width: 100%;
 
 }
-bodyBackground{
+.bodyBackground{
   background-image: linear-gradient(to left,#1B4079, #4D7C8A, #7F9C96, #8fad88, #cbdf90 );
 }
 /* //test comment to see if commits are working */
