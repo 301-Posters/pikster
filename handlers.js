@@ -13,7 +13,7 @@ const generateMovie = (request, response) => {
     .then(results => {
       // console.log(results.body);
       const responseObj = results.body.results.map(movie => new Movie(movie));
-      response.render('EJS/detail.ejs', { movies: responseObj });
+      response.render('ejs/detail.ejs', { movies: responseObj });
     })
     .catch(error => {
       console.error(error);
@@ -23,7 +23,7 @@ const generateMovie = (request, response) => {
 const createAcc = (request, response) => {
 
   let message = request.query.error || 'Yay';
-  response.status(200).render('EJS/createacc.ejs', { message: message });
+  response.status(200).render('ejs/createacc.ejs', { message: message });
 
 
 }
@@ -62,7 +62,7 @@ const generateLibrary = (request, response) => {
           .then(results => {
             //remove the currentMovie from the session prior to rendering the view.
             delete request.session.currentMovie;
-            response.render('EJS/library.ejs', { library: results.rows })
+            response.render('ejs/library.ejs', { library: results.rows })
           })
       })
       .catch(err => {
@@ -72,7 +72,7 @@ const generateLibrary = (request, response) => {
     let sql = 'SELECT * from movies INNER JOIN movies_in_libraries ON movies.id = movies_in_libraries.movie_id WHERE $1 = movies_in_libraries.user_id;';
     client.query(sql, [request.session.user.id])
       .then(results => {
-        response.render('EJS/library.ejs', { library: results.rows })
+        response.render('ejs/library.ejs', { library: results.rows })
       })
   }
 }
@@ -83,7 +83,7 @@ const renderLoginPage = (request, response) => {
     //construct new Movie, assign to currentMovie
     response.redirect(`/library`)
   } else {
-    response.render('EJS/createAcc.ejs', { message: `Welcome` });
+    response.render('ejs/createAcc.ejs', { message: `Welcome` });
   }
 }
 
@@ -134,6 +134,10 @@ const secureLogin = (request, response) => {
     })
 }
 
+const renderAboutUsPage = (request, response) => {
+  response.status(200).render('ejs/aboutUs.ejs');
+}
+
 const deleteMovie = (request, response) => {
   console.log('some stuff');
 
@@ -164,7 +168,7 @@ function getTrendingMovies(request, response) {
     .then(data => {
       const responseObj = data.body.results.map(movie => new Movie(movie));
       const responseMovies = responseObj.filter(movie => movie.title);
-      response.status(200).render('EJS/index.ejs', { movies: responseMovies });
+      response.status(200).render('ejs/index.ejs', { movies: responseMovies });
     })
     .catch(() => errorHandler('Something went wrong', response));
 }
@@ -193,5 +197,6 @@ module.exports = {
   errorHandler: errorHandler,
   notFoundHandler: notFoundHandler,
   getTrendingMovies: getTrendingMovies,
-  renderLoginPage: renderLoginPage
+  renderLoginPage: renderLoginPage,
+  renderAboutUsPage: renderAboutUsPage
 };
