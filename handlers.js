@@ -22,20 +22,18 @@ const generateMovie = (request, response) => {
 
 const createAcc = (request, response) => {
 
-  let message = request.query.error;
-  if (request.query.error){
-    message = 'Please login or create a user';
-    response.status(200).render('EJS/createacc.ejs', {message: message});
-  }
+  let message = request.query.error || 'Yay';
+  response.status(200).render('EJS/createacc.ejs', { message: message });
+
 
 }
 
 //display the library page, use session.user to render user specific info (name etc).
 //if there is a new book, it is in the query.
 const generateLibrary = (request, response) => {
-//queries: newBook. The TMDB id of the new book.
-//params: none
-//body: none
+  //queries: newBook. The TMDB id of the new book.
+  //params: none
+  //body: none
 
   let user = request.session.user.id;
   let SQL2 = 'SELECT * from movies INNER JOIN movies_in_libraries ON movies.id = movies_in_libraries.movie_id WHERE $1 = movies_in_libraries.user_id;';
@@ -52,27 +50,60 @@ const generateLibrary = (request, response) => {
 
 }
 
-const renderLoginPage = (request,response) => {
+const renderLoginPage = (request, response) => {
   if (request.session.user) {
     response.redirect(`/library?newBook=${req.params.id}`)
   } else {
-    response.render('EJS/createAcc', {message: `Welcome`});
+    response.render('EJS/createAcc', { message: `Welcome` });
   }
 
 }
 
 const secureLogin = (request, response) => {
-  // request.session.user = request.body.user;
-  // request.session.password = request.body.password;
-  
-  if (!request.session.user) {
-    response.redirect('/createacc/?error=credentials');
-  } else {
 
-    response.redirect('/library');
+  //Check database for their login credentials
+  let SQL = 'SELECT * FROM users WHERE username = $1 AND password = $2;';
+  let values = [request.body.user, request.body.password];
+  client.query(SQL, values)
+    .then(results => {
+      let message = 
+      results.rows.length === 0 && !request.body.new ? 'Invalid%20Login' : 
+      results.rows.length === 1 && request.body.new ? 'That%20Name%20Taken' : 'none';
 
-  }
 
+      //if the database doesnt return anyone and the new account box was checked.
+      if (results.rows.length === 0 && request.body.new) {
+        let sql = 'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id;';
+        let safeWords = [request.body.user, request.body.password];
+        client.query(sql, safeWords)
+          .then(results => {
+            request.session.user = {
+              id: results.rows[0].id,
+              username: request.body.username,
+              password: request.body.password
+            }
+            response.redirect('/library');
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        //if the database returns a user and the new account box was NOT checked.
+      } else if (results.rows.length === 1 && !request.body.new) {
+        request.session.user = {
+          id: results.rows[0].id,
+          username: results.rows[0].username,
+          password: results.rows[0].password
+        }
+        response.redirect('/library');
+
+        //if the user is not in the DB and the user does not want a new account
+      } else {
+        response.redirect(`/createAcc?error=${message}`);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
 }
 
 const deleteMovie = (request, response) => {

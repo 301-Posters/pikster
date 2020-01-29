@@ -44,36 +44,34 @@ app.post('/generatemovie/:id', routeHandlers.generateMovie);
 app.get('/createacc', routeHandlers.createAcc);
 
 // renders users personal library
-app.get('/library', routeHandlers.generateLibrary);
+app.get('/library', authorize, routeHandlers.generateLibrary);
 
 //check the login credentials on the request, then redirect to /library or /
 app.get('/securelogin/:id', routeHandlers.renderLoginPage);
 app.post('/securelogin', routeHandlers.secureLogin);
 
-
 //delete movie from users library
-app.delete('/movie', routeHandlers.deleteMovie);
+app.delete('/movie', authorize, routeHandlers.deleteMovie);
 
 //change blacklist status for individual movie
-app.put('/update', routeHandlers.updateLibrary);
+app.put('/update', authorize, routeHandlers.updateLibrary);
 
 // error handlers routes
 app.use('*', routeHandlers.notFoundHandler);
 app.use(routeHandlers.errorHandler);
 
-
-// function authorize (request, response, next){
-//     if (!request.session.user) {
-//         response.redirect('/createacc');
-//     } else {
-//         next();
-//     }
-// }
+function authorize (request, response, next){
+    if (!request.session.user) {
+        response.redirect('/createacc');
+    } else {
+        next();
+    }
+}
 client.connect()
   .then(() => {
     app.listen(PORT, ()=> (console.log(`We are listening on port ${PORT}!`)));
   })
-  .catch(err => console.log('UHH OHHH!!!', err));
+  .catch(err => console.log('Database failed to start!!!!!', err));
 
 
 // module.exports = {
