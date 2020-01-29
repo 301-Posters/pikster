@@ -6,7 +6,8 @@ CREATE TABLE movies (
     id SERIAL PRIMARY KEY,
     descript TEXT,
     year INT,
-    title VARCHAR (255)
+    title VARCHAR (255),
+    image_url VARCHAR
 );  
 
 CREATE TABLE users (
@@ -17,8 +18,7 @@ CREATE TABLE users (
 
 CREATE TABLE movies_in_libraries (
     user_id INT not null,
-    movie_id INT not null,
-    black_list BOOLEAN
+    movie_id INT not null
 );  
 
 

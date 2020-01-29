@@ -74,7 +74,6 @@ const renderLoginPage = (request, response) => {
   } else {
     response.render('EJS/createAcc', { message: `Welcome` });
   }
-
 }
 
 const secureLogin = (request, response) => {
