@@ -76,6 +76,3 @@ client.connect()
   .catch(err => console.log('Database failed to start!!!!!', err));
 
 
-// module.exports = {
-//   server: app
-// };

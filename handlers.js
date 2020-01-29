@@ -5,9 +5,10 @@
 
 const superagent = require('superagent');
 const client = require('./database.js');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const generateMovie = (request, response) => {
-  console.log(request.params);
   let key = process.env.MOVIE_API_KEY;
   superagent.get(`https://api.themoviedb.org/3/movie/${request.params.id}/similar?api_key=${key}&language=en-US&page=1`)
     .then(results => {
@@ -88,41 +89,52 @@ const renderLoginPage = (request, response) => {
 }
 
 const secureLogin = (request, response) => {
-
+  
   //Check database for their login credentials
-  let SQL = 'SELECT * FROM users WHERE username = $1 AND password = $2;';
-  let values = [request.body.user, request.body.password];
+  let SQL = 'SELECT * FROM users WHERE username = $1;';
+  let values = [request.body.user];
   client.query(SQL, values)
     .then(results => {
       let message =
         results.rows.length === 0 && !request.body.new ? 'Invalid%20Login' :
-          results.rows.length === 1 && request.body.new ? 'That%20Name%20Taken' : 'none';
+        results.rows.length === 1 && request.body.new ? 'That%20Name%20Taken' : 'none';
 
 
       //if the database doesnt return anyone and the new account box was checked.
       if (results.rows.length === 0 && request.body.new) {
-        let sql = 'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id;';
-        let safeWords = [request.body.user, request.body.password];
-        client.query(sql, safeWords)
-          .then(results => {
-            request.session.user = {
-              id: results.rows[0].id,
-              username: request.body.username,
-              password: request.body.password
-            }
-            response.redirect('/library');
-          })
-          .catch(err => {
-            console.log(err);
+      
+        bcrypt.genSalt(saltRounds, function(err, salt) {
+          bcrypt.hash(request.body.password, salt, function(err, hash) {
+            let sql = 'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id;';
+            let safeWords = [request.body.user, hash];
+            client.query(sql, safeWords)
+              .then(results => {
+                request.session.user = {
+                  id: results.rows[0].id,
+                  username: request.body.username,
+                  password: hash
+                }
+                response.redirect('/library');
+              })
+              .catch(err => {
+                console.log(err);
+              })
+            })
           })
         //if the database returns a user and the new account box was NOT checked.
       } else if (results.rows.length === 1 && !request.body.new) {
-        request.session.user = {
-          id: results.rows[0].id,
-          username: results.rows[0].username,
-          password: results.rows[0].password
-        }
-        response.redirect('/library');
+        bcrypt.compare(request.body.password, results.rows[0].password).then(res => {
+          if (res) {
+            request.session.user = {
+              id: results.rows[0].id,
+              username: results.rows[0].username,
+              password: results.rows[0].password
+            }
+            response.redirect('/library');
+          } else {
+            response.redirect(`/createAcc?error=${message}`);
+          }
+        })
 
         //if the user is not in the DB and the user does not want a new account
       } else {
