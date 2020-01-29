@@ -31,9 +31,25 @@ const createAcc = (request, response) => {
 //display the library page, use session.user to render user specific info (name etc).
 //if there is a new book, it is in the query.
 const generateLibrary = (request, response) => {
-  //queries: newBook. The TMDB id of the new book.
+  //queries: newMovie. The TMDB id of the new movie.
   //params: none
   //body: none
+
+  let sql = 'INSERT INTO movies_in_libraries (user_id, movie_id) VALUES ($1, $2);';
+  client.query(sql, [request.session.user.id, request.session.currentMovie.id])
+    .then(results => {
+      const vals = Object.values(request.session.currentMovie);
+      //TODO: handle the insertion of the movies into the movies table
+      return client.query('INSERT INTO movies (id, descript, year, title) VALUES ($1, $2, $3, $4);', vals)
+    })
+    .then(results => {
+      console.log();
+    })
+
+
+
+
+
 
   let user = request.session.user.id;
   let SQL2 = 'SELECT * from movies INNER JOIN movies_in_libraries ON movies.id = movies_in_libraries.movie_id WHERE $1 = movies_in_libraries.user_id;';
@@ -51,8 +67,10 @@ const generateLibrary = (request, response) => {
 }
 
 const renderLoginPage = (request, response) => {
+  request.session.currentMovie = request.body;
   if (request.session.user) {
-    response.redirect(`/library?newBook=${req.params.id}`)
+    //construct new Movie, assign to currentMovie
+    response.redirect(`/library`)
   } else {
     response.render('EJS/createAcc', { message: `Welcome` });
   }
@@ -66,9 +84,9 @@ const secureLogin = (request, response) => {
   let values = [request.body.user, request.body.password];
   client.query(SQL, values)
     .then(results => {
-      let message = 
-      results.rows.length === 0 && !request.body.new ? 'Invalid%20Login' : 
-      results.rows.length === 1 && request.body.new ? 'That%20Name%20Taken' : 'none';
+      let message =
+        results.rows.length === 0 && !request.body.new ? 'Invalid%20Login' :
+          results.rows.length === 1 && request.body.new ? 'That%20Name%20Taken' : 'none';
 
 
       //if the database doesnt return anyone and the new account box was checked.
