@@ -1,141 +1,93 @@
-.innerContainer{
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  text-align:;
-  /* margin-top: 80%; */
-  font-style: italic;
-  text-transform: none;
-  widows: 800px;
-  margin-top: 200px;
-  border-color:  black;
-  
+body{
+width: 100%;
 
-  
 }
 
-.flex-harlenContainer,
-.flex-allyContainer,
-.flex-tylerContainer,
-.flex-andrewContainer{
-  max-width: 500px;
-  box-shadow: 20px black;
-  border-color: black;
-  overflow: hidden;
-  background-image: url(../img/profileBackground.jpg),url('../img/forground.png') ;
+.innerContainer{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  /* -moz-box-flexgroup: inherit; */
+  flex-direction: row;
+  font-style: italic;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  min-width: 50%;
+  /* height: auto; */
+  margin-top: 200px;
+  /* border-color:  black; */
+  align-items: flex-start;
+   flex-flow: wrap;
+}
+
+.flex-container{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  width: 800px;
+  /* max-width: auto; */
+  min-height: 300px;
+  padding-top: 80px;
+  flex-flow: row wrap;
+  height
+}
+.background img{
+  margin-top: -100px;
+}
+
+.background{
+  background-image: url(../img/profileBackground.jpg);
+  height:;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-position: 50% 50%;
-  background-image: , z-index: inherit 1;
-  
+  background-image:  z-index: inherit 1;
 }
 
 
-
-
-
-.container{
+/* .container{
   min-width: 320px;
   width: auto;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-}
+} */
 
 .button{
   height: 50px;
 }
 
-header{
-  background-image: url('../img/closedHeader.jpg');
+.header{
+  background-color: lawngreen;
+  display: flex;
+  justify-content:space-evenly; 
+  /* justify-content: space-around; */
+  contain: content;
   width: auto;
-  height: auto;
-  align-content: center;
-
-  /* justify-content: center; */
-  /* flex-direction: row; */
+  max-width: 960vh;
+  flex-direction: row;
+  background-repeat: no-repeat;
   /* align-content: center; */
+  /* width: 100%; */
+  /* max-width: 960px; */
+  flex-direction: row;
+  align-content: center;
   height: 500px;
 
 }
+.header button{
+  display: flex;
+  justify-content: space-between 20px;
+  margin-top: 25px;
+  flex-direction: row;
+  width: 300%;
+  height: 75px;
+}
 footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
+  align-content: center;
   width: 100%;
   margin-top: auto;
   border: solid 1px black;
-}
-footer h1{
-  display: flex;
-  justify-content: flex-start;
-  align-content: center;
-  overflow-wrap: break-word;
-}
-
-.flex-container {
-  /* display: flex; */
-  /* justify-content:space-between ; */
-  /* padding: 0px 12px 0px 12px; */
-  /* width: 540px; */
-  /* height: 1px; */
-  /* box-shadow: 0 0 8px 8px white inset; */
-} 
-/* 
-body{ */
-  /* display: flexbox;
-  justify-content: center; 
-  background-image: ;  */
-
-  /* background-image: url('../img/cinema.jpg')  ; */
-  /* max-width: 960px;
-  height: 540px;
-  z-index: -2; */
-  
-/* } */
-/* #aboutUs{
-  color: blue;
-  width: 100px;
-  height: 50px;
-  box-shadow: 0px clear;
-  transform: translateY(5px);
-  padding: 2px 2px;
-  font-size: 2px;
-  text-align: center;
-	cursor: pointer;
-	/* margin-top: 300px; */
-  /* outline: none;
-  color: #fff;
-  background-color: clear;
-  border: none;
-  border-radius: 1px;
-	box-shadow: 0px black; */ 
-	/* max-height: calc(100% - 5px); */
-}
-
-/* .flex-container{
-  /* background-image: url('../img/deadpolreru.png'); */
-  /* width: 300px; */
-  /* height: auto; */
-  /* align-content: ;
-  z-index: 1;
-
-  transform: translate(-50%, -50%); */
-/* } */ 
-
-
-/* .nav {
-  padding: 15px 25px;
-	font-size: 20px;
-	text-align: center;
-  cursor: pointer;
-  outline: none;
-  color: rgba(0, 0, 0, 0.726);
-  background-color: rgb(188, 198, 202);
-  border: none;
-  border-radius: 15px;
-	box-shadow: 0 9px 0 2px rgb(58, 49, 49); */
-	/* float: right; */
-	/* margin: -50px 0px 0px 50px; */
-/* } */
+                }
