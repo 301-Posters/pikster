@@ -38,6 +38,19 @@
      
       
     </div>
+    <section class="trendingMovies">
+      <% library.forEach(movie => { %>
+        <div class="movie">
+          <header>
+            <h2><%= movie.title %></h2>
+          </header>
+          <img src="<%=movie.image_url%>" alt="">
+            <form action="/movie?_method=DELETE" method="POST">
+              <button>Remove from Library</button>
+          </form>
+        </div>
+      <% }) %>
+    </section>
     
   </main>
   <footer>

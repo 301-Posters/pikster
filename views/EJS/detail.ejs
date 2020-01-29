@@ -27,7 +27,11 @@
                 <h2><%= movie.title %></h2>
                 <p><%= movie.descript %></p>
               </header>
-              <form action="/securelogin/<%= movie.movieId %>" method="GET">
+              <form action="/login" method="POST">
+                <input style="display: none;" name="url" value="<%= movie.image_url %>">
+                <input style="display: none;" name="title" value="<%= movie.title %>">
+                <input style="display: none;" name="descript" value="<%= movie.descript %>">
+                <input style="display: none;" name="id" value="<%= movie.movieId %>">
                 <button>Add to Library</button>
               </form>
             </div>
