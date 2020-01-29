@@ -16,6 +16,7 @@ client.on('error', err => console.error(err));
 app.set('view engine', 'ejs');
 // The location of our EJS Templates
 app.set('views', './views');
+app.use(express.static('./public'));
 
 
 

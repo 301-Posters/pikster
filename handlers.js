@@ -28,42 +28,50 @@ const createAcc = (request, response) => {
 
 }
 
-//display the library page, use session.user to render user specific info (name etc).
-//if there is a new book, it is in the query.
+
 const generateLibrary = (request, response) => {
-  //queries: newMovie. The TMDB id of the new movie.
-  //params: none
-  //body: none
 
-  let sql = 'INSERT INTO movies_in_libraries (user_id, movie_id) VALUES ($1, $2);';
-  client.query(sql, [request.session.user.id, request.session.currentMovie.id])
-    .then(results => {
-      const vals = Object.values(request.session.currentMovie);
-      //TODO: handle the insertion of the movies into the movies table
-      return client.query('INSERT INTO movies (id, descript, year, title) VALUES ($1, $2, $3, $4);', vals)
-    })
-    .then(results => {
-      console.log();
-    })
+  //if the user is coming from a movie selection, currentMovie will  exist, 
+  //and we want to add it to their library ( so long as it is not a duplicate).
 
-
-
-
-
-
-  let user = request.session.user.id;
-  let SQL2 = 'SELECT * from movies INNER JOIN movies_in_libraries ON movies.id = movies_in_libraries.movie_id WHERE $1 = movies_in_libraries.user_id;';
-  let values = [user];
-  client.query(SQL2, values)
-    .then(results => {
-      console.log(results.rows);
-      response.render('EJS/library.ejs', { results: results.rows })
-    })
-    .catch(err => {
-      console.log(err);
-      // errorHandler('So sorry, your movie library is supposed to show up!', request, response);
-    });
-
+  //find the movie-user relation (ie a library entry)
+  if (request.session.currentMovie) {
+    client.query('SELECT * FROM movies_in_libraries WHERE user_id = $1 AND movie_id = $2', [request.session.user.id, request.session.currentMovie.id])
+      .then(results => {
+        return results.rows.length;
+      })
+      .then(results => {
+        //then, if it the relation didnt exist, add the relation.
+        if (results === 0) {
+          return client.query('INSERT INTO movies_in_libraries (user_id, movie_id) VALUES ($1, $2);', [request.session.user.id, request.session.currentMovie.id])
+        }
+      })
+      .then(results => {
+        //then, insert the movie into the movies table, (automatically rejects duplicates.)
+        const { id, descript, title, url } = request.session.currentMovie;
+        return client.query('INSERT INTO movies (id, descript, title, image_url) VALUES ($1, $2, $3, $4);', [id, descript, title, url])
+      })
+      .then(results => {
+        //then, in all cases..
+        //render the library view with the contents of the user's library.
+        let sql = 'SELECT * from movies INNER JOIN movies_in_libraries ON movies.id = movies_in_libraries.movie_id WHERE $1 = movies_in_libraries.user_id;';
+        client.query(sql, [request.session.user.id])
+          .then(results => {
+            //remove the currentMovie from the session prior to rendering the view.
+            delete request.session.currentMovie;
+            response.render('EJS/library.ejs', { library: results.rows })
+          })
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  } else {
+    let sql = 'SELECT * from movies INNER JOIN movies_in_libraries ON movies.id = movies_in_libraries.movie_id WHERE $1 = movies_in_libraries.user_id;';
+    client.query(sql, [request.session.user.id])
+      .then(results => {
+        response.render('EJS/library.ejs', { library: results.rows })
+      })
+  }
 }
 
 const renderLoginPage = (request, response) => {
