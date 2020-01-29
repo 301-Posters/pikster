@@ -1,0 +1,11 @@
+/* body {
+    background-image: linear-gradient(to left,#1B4079, #4D7C8A, #7F9C96, #8fad88, #cbdf90
+} */
+
+body {
+    background-color: blue;
+}
+
+h1 {
+    font-size: 5em;
+}

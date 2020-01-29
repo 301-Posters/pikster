@@ -24,8 +24,6 @@ const createAcc = (request, response) => {
 
   let message = request.query.error || 'Yay';
   response.status(200).render('EJS/createacc.ejs', { message: message });
-
-
 }
 
 //display the library page, use session.user to render user specific info (name etc).
