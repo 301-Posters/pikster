@@ -139,8 +139,11 @@ const renderAboutUsPage = (request, response) => {
 }
 
 const deleteMovie = (request, response) => {
-  console.log('some stuff');
-
+  let sql = `DELETE FROM movies_in_libraries WHERE movie_id=$1;`;
+  let safeValue = [request.params.id];
+  client.query(sql, safeValue)
+    .then(results => response.redirect('/library'))
+    .catch(err => console.log(err));
 }
 
 const updateLibrary = (request, response) => {
