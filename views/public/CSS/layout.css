@@ -1,14 +1,11 @@
 body{
-  
-  width: fit-content;
-  margin: 0 45 0 45;
-  justify-content: space-evenly;
+  width: 960px;
 
 }
 
 .innerContainer{
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
   flex-direction: row;
   text-align:;
@@ -27,73 +24,110 @@ body{
 }
 
 .flex-harlenContainer{
-  background-image: url(../img/harlen.png) ;
   z-index: 40;
-  overflow: hidden;
   flex-wrap: text-transform, border-spacing, flex-grow, object-fit;
   max-width: 700px;
   min-height: 360px;
   z-index: 1;
   box-shadow: 20px black;
   border-color: black;
-  overflow: hidden;
-  background-image: url(../img/profileBackground.jpg),url('../img/forground.png');
+  /* overflow: hidden; */
+
+  height
+}
+.background img{
+  margin-top: -100px;
+}
+
+.background{
+  background-image: url(../img/profileBackground.jpg);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-position: 50% 50%;
   background-image:  z-index: inherit 1;
-  height
+
+  
+
 }
 
 .flex-allyContainer{
-  
-  flex-wrap: text-transform: border-spacing: flex-grow: object-fit: ;
+  z-index: 40;
+  flex-wrap: text-transform, border-spacing, flex-grow, object-fit;
   max-width: 700px;
-  min-height: 100vh
+  min-height: 360px;
   z-index: 1;
   box-shadow: 20px black;
   border-color: black;
-  overflow: hidden;
-  background-image: url(../img/profileBackground.jpg),url('../img/forground.png');
-  background-size: contain;
-  
-  background-repeat: no-repeat;
-  background-position: center;
-  /* background-position: 50% 50%; */
-  /* background-image:  z-index: inherit 1; */
-  
+  /* overflow: hidden; */
+
+  height
 }
-.flex-tylerContainer{
-  flex-wrap: text-transform: border-spacing: flex-grow: object-fit: ;
-  max-width: 700px;
-  min-height: 100vh
-  z-index: 1;
-  box-shadow: 20px black;
-  border-color: black;
-  overflow: hidden;
-  background-image: url(../img/profileBackground.jpg),url('../img/forground.png');
+.background img{
+  margin-top: -100px;
+}
+
+.background{
+  background-image: url(../img/profileBackground.jpg);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-position: 50% 50%;
   background-image:  z-index: inherit 1;
 
+  
+
 }
-.flex-andrewContainer{
+.flex-tylerContainer{
+  z-index: 40;
+  flex-wrap: text-transform, border-spacing, flex-grow, object-fit;
   max-width: 700px;
-  min-height: 100vh
+  min-height: 360px;
+  margin-left: ;
   z-index: 1;
+  align-content: center;
   box-shadow: 20px black;
   border-color: black;
-  overflow: hidden;
-  background-image: url(../img/profileBackground.jpg),url('../img/forground.png');
+  /* overflow: hidden; */
+
+  height
+}
+.background img{
+  margin-top: -100px;
+}
+
+.background{
+  background-image: url(../img/profileBackground.jpg);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-position: 50% 50%;
   background-image:  z-index: inherit 1;
-  
+}
+
+.flex-andrewContainer{
+  z-index: 40;
+  flex-wrap: text-transform, border-spacing, flex-grow, object-fit;
+  max-width: 700px;
+  min-height: 360px;
+  z-index: 1;
+  box-shadow: 20px black;
+  border-color: black;
+  /* overflow: hidden; */
+
+  height
+}
+.background img{
+  margin-top: -100px;
+}
+
+.background{
+  background-image: url(../img/profileBackground.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 50% 50%;
+  background-image:  z-index: inherit 1;
 }
 
 p{
@@ -102,6 +136,7 @@ p{
 
 h1{
   position: relative;
+  
   /* display: ; */
   /* image-rendering: pixelated; */
   background-image: url(../img/forground.png);
@@ -129,8 +164,6 @@ h1{
 header{
   background-image: url('../img/closedHeader.jpg');
   background-repeat: no-repeat;
-  width: auto;
-  height: 400rem;
   align-content: center;
 
   /* justify-content: center; */
@@ -140,11 +173,8 @@ header{
 
 }
 footer {
-  margin: 0 45 0 45;
   align-content: center;
-  left: 0;
-  bottom: 0;
-  width: auto;
+  width: 100%;
   margin-top: auto;
   border: solid 1px black;
 }
