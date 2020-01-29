@@ -3,8 +3,9 @@ width: 100%;
 
 }
 .bodyBackground{
-  background-image: linear-gradient(to left,#1B4079, #4D7C8A, #7F9C96, #8fad88, #cbdf90 );
+  background-image: linear-gradient(#d4dcbd, #c2cdbf, rgb(162, 174, 172), rgb(144, 167, 174), rgb(66, 96, 140));
 }
+
 /* //test comment to see if commits are working */
 .innerContainer{
   display: flex;
