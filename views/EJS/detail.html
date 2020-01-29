@@ -3,9 +3,8 @@
 <head>
 
   <!-- <link href="https://fonts.googleapis.com/css?family=Ceviche+One&display=swap" rel="stylesheet"> -->
-  <link rel="stylesheet" href="/css/layout.css">
-  <link rel="stylesheet" href="/css/base.css">
-  <link rel="stylesheet" href="/css/modules.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -27,11 +26,7 @@
                 <h2><%= movie.title %></h2>
                 <p><%= movie.descript %></p>
               </header>
-              <form action="/login" method="POST">
-                <input style="display: none;" name="url" value="<%= movie.image_url %>">
-                <input style="display: none;" name="title" value="<%= movie.title %>">
-                <input style="display: none;" name="descript" value="<%= movie.descript %>">
-                <input style="display: none;" name="id" value="<%= movie.movieId %>">
+              <form action="/securelogin/<%= movie.movieId %>" method="GET">
                 <button>Add to Library</button>
               </form>
             </div>

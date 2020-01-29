@@ -2,7 +2,10 @@ body{
 width: 100%;
 
 }
-
+.bodyBackground{
+  background-image: linear-gradient(to left,#1B4079, #4D7C8A, #7F9C96, #8fad88, #cbdf90 );
+}
+/* //test comment to see if commits are working */
 .innerContainer{
   display: flex;
   justify-content: space-between;
@@ -60,7 +63,7 @@ width: 100%;
 }
 
 .header{
-  background-color: lawngreen;
+  background-image: url(../img/curtain.jpg);
   display: flex;
   justify-content:space-evenly; 
   /* justify-content: space-around; */

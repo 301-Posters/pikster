@@ -13,10 +13,9 @@ const client = require('./database.js');
 client.on('error', err => console.error(err));
 
 // On the server, we'll use EJS to do templates
-app.set('view engine', 'ejs');
+app.use(express.static('/public'));
 // The location of our EJS Templates
-app.set('views', './views');
-app.use(express.static('./public'));
+app.set('view engine', './views');
 
 
 
@@ -26,8 +25,8 @@ const routeHandlers = require('./handlers');
 
 ///////////////////////CONFIGURE EXPRESS//////////////////////////////
 app.use(cors());
-app.set('view egine', 'ejs');
-app.set('views', './views');
+// app.set('view egine', 'ejs');
+// app.set('views', './views');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: "789vbnmk", resave: true, saveUninitialized: true }));
