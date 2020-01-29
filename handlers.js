@@ -51,6 +51,9 @@ const generateLibrary = (request, response) => {
         const { id, descript, title, url } = request.session.currentMovie;
         return client.query('INSERT INTO movies (id, descript, title, image_url) VALUES ($1, $2, $3, $4);', [id, descript, title, url])
       })
+      .catch(err => {
+        console.log(err, 'i bet there was a duplicate movie....');
+      })
       .then(results => {
         //then, in all cases..
         //render the library view with the contents of the user's library.
@@ -80,7 +83,7 @@ const renderLoginPage = (request, response) => {
     //construct new Movie, assign to currentMovie
     response.redirect(`/library`)
   } else {
-    response.render('EJS/createAcc', { message: `Welcome` });
+    response.render('EJS/createAcc.ejs', { message: `Welcome` });
   }
 }
 

@@ -13,7 +13,7 @@ const client = require('./database.js');
 client.on('error', err => console.error(err));
 
 // On the server, we'll use EJS to do templates
-app.use(express.static('/public'));
+app.use(express.static('./public'));
 // The location of our EJS Templates
 app.set('view engine', './views');
 
