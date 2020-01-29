@@ -1,5 +1,5 @@
 body{
-  width: 960px;
+width: 100%;
 
 }
 
@@ -7,181 +7,87 @@ body{
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  /* -moz-box-flexgroup: inherit; */
   flex-direction: row;
-  text-align:;
-  /* margin-top: 80%; */
   font-style: italic;
-  text-transform: none;
-  width: auto;
-  min-width: 600px;
-  height: auto;
-  margin-top: 200px;
-  border-color:  black;
-  
-  
-
-  
-}
-
-.flex-harlenContainer{
-  z-index: 40;
-  flex-wrap: text-transform, border-spacing, flex-grow, object-fit;
-  max-width: 700px;
-  min-height: 360px;
-  z-index: 1;
-  box-shadow: 20px black;
-  border-color: black;
-  /* overflow: hidden; */
-
-  height
-}
-.background img{
-  margin-top: -100px;
-}
-
-.background{
-  background-image: url(../img/profileBackground.jpg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-position: 50% 50%;
-  background-image:  z-index: inherit 1;
-
-  
-
-}
-
-.flex-allyContainer{
-  z-index: 40;
-  flex-wrap: text-transform, border-spacing, flex-grow, object-fit;
-  max-width: 700px;
-  min-height: 360px;
-  z-index: 1;
-  box-shadow: 20px black;
-  border-color: black;
-  /* overflow: hidden; */
-
-  height
-}
-.background img{
-  margin-top: -100px;
-}
-
-.background{
-  background-image: url(../img/profileBackground.jpg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-position: 50% 50%;
-  background-image:  z-index: inherit 1;
-
-  
-
-}
-.flex-tylerContainer{
-  z-index: 40;
-  flex-wrap: text-transform, border-spacing, flex-grow, object-fit;
-  max-width: 700px;
-  min-height: 360px;
-  margin-left: ;
-  z-index: 1;
-  align-content: center;
-  box-shadow: 20px black;
-  border-color: black;
-  /* overflow: hidden; */
-
-  height
-}
-.background img{
-  margin-top: -100px;
-}
-
-.background{
-  background-image: url(../img/profileBackground.jpg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-position: 50% 50%;
-  background-image:  z-index: inherit 1;
-}
-
-.flex-andrewContainer{
-  z-index: 40;
-  flex-wrap: text-transform, border-spacing, flex-grow, object-fit;
-  max-width: 700px;
-  min-height: 360px;
-  z-index: 1;
-  box-shadow: 20px black;
-  border-color: black;
-  /* overflow: hidden; */
-
-  height
-}
-.background img{
-  margin-top: -100px;
-}
-
-.background{
-  background-image: url(../img/profileBackground.jpg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-position: 50% 50%;
-  background-image:  z-index: inherit 1;
-}
-
-p{
-  z-index: 100;
-}
-
-h1{
-  position: relative;
-  
-  /* display: ; */
-  /* image-rendering: pixelated; */
-  background-image: url(../img/forground.png);
-  /* z-index: 100; */
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  min-width: 50%;
   /* height: auto; */
+  margin-top: 200px;
+  /* border-color:  black; */
+  align-items: flex-start;
+   flex-flow: wrap;
+}
+
+.flex-container{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  width: 800px;
+  /* max-width: auto; */
+  min-height: 300px;
+  padding-top: 80px;
+  flex-flow: row wrap;
+  height
+}
+.background img{
+  margin-top: -100px;
+}
+
+.background{
+  background-image: url(../img/profileBackground.jpg);
+  height:;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 50% 50%;
+  background-image:  z-index: inherit 1;
 }
 
 
-
-
-
-
-.container{
+/* .container{
   min-width: 320px;
   width: auto;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-}
+} */
 
 .button{
   height: 50px;
 }
 
-header{
-  background-image: url('../img/closedHeader.jpg');
+.header{
+  background-color: lawngreen;
+  display: flex;
+  justify-content:space-evenly; 
+  /* justify-content: space-around; */
+  contain: content;
+  width: auto;
+  max-width: 960vh;
+  flex-direction: row;
   background-repeat: no-repeat;
-  align-content: center;
-
-  /* justify-content: center; */
-  /* flex-direction: row; */
   /* align-content: center; */
+  /* width: 100%; */
+  /* max-width: 960px; */
+  flex-direction: row;
+  align-content: center;
   height: 500px;
 
+}
+.header button{
+  display: flex;
+  justify-content: space-between 20px;
+  margin-top: 25px;
+  flex-direction: row;
+  width: 300%;
+  height: 75px;
 }
 footer {
   align-content: center;
   width: 100%;
   margin-top: auto;
   border: solid 1px black;
-}
-/* footer h1{
-  display: flex;
-  justify-content: flex-start;
-  align-content: center;
-  overflow-wrap: break-word;
-}
- */
+                }
