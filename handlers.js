@@ -146,6 +146,13 @@ const secureLogin = (request, response) => {
       console.log(err);
     })
 }
+const logOut = { link: '/logout', status: 'Log Out'}
+const logIn = {link: '/createAcc', status: 'Log In'}
+
+const logOut = (request, response) => {
+  delete request.session.user;
+  response.redirect('/', {login: logIn});
+}
 
 const changePassword = (request, response) => {
 
@@ -220,5 +227,6 @@ module.exports = {
   getTrendingMovies: getTrendingMovies,
   renderLoginPage: renderLoginPage,
   renderAboutUsPage: renderAboutUsPage,
-  changePassword: changePassword
+  changePassword: changePassword,
+  logOut: logOut
 };
