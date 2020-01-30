@@ -1,0 +1,50 @@
+<html lang="en">
+
+<head>
+
+  <!-- <link href="https://fonts.googleapis.com/css?family=Ceviche+One&display=swap" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/modules.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pixster</title>
+
+</head>
+
+<body class="bodyBackground">
+
+
+  <%- include('partials/header') %>
+
+
+
+  <main>
+    <h1>Your library!</h1>
+
+  <section class="tile-container">
+    <% library.forEach(movie => { %>
+    <div class="movie-tile" style="background-image: url(<%=movie.image_url%>);" form="submit<%=movie.movieId%>">
+      <header>
+        <h2><%= movie.title %></h2>
+      </header>
+      <form action="/movie?_method=DELETE" method="POST">
+        <button>Remove from Library</button>
+      </form>
+    </div>
+    <% }) %>
+  </section>
+
+  </main>
+  <footer>
+    <h1>Team Name Here</h1>
+    <img src="../public/img/Octocat.png" width="35px">
+    <h1>https://github.com/301-Posters</h1>
+  </footer>
+
+
+</body>
+
+</html>
