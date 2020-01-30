@@ -1,0 +1,50 @@
+
+/* container for holding all of the tiles. Takes up 95% width of page.*/
+.tile-container {
+  margin-top: 100px;
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+/* This is an instance of a single movie tile. */
+.movie-tile {
+  height: 400px;
+  width: 460px;
+  margin: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: rgb(63, 65, 77);
+  border-radius: 10px;
+  background-repeat: space;
+}
+
+.movie-tile:hover {
+  transform: scale(1.01);
+  transition-duration: 100ms;
+  overflow: hidden;
+
+
+}
+/* header tag within the movie tile. */
+.movie-tile header {
+  background-color: hsla(63, 65, 77, 0);
+  width: 100%;
+  text-align: center;
+  color: ivory;
+}
+
+.scrollbox {
+  overflow: scroll;
+  height: 80px;
+
+}
+/* button for adding stuff to the library */
+.library-adder {
+  border-radius: 5px;
+  padding: 5px;
+}
