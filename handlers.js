@@ -166,7 +166,7 @@ const deleteMovie = (request, response) => {
   let sql = `DELETE FROM movies_in_libraries WHERE movie_id=$1;`;
   let safeValue = [request.params.id];
   client.query(sql, safeValue)
-    .then(results => response.redirect('/library'))
+    .then(() => response.redirect('/library'))
     .catch(err => console.log(err));
 }
 
