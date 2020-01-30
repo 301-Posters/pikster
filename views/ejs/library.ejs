@@ -33,7 +33,7 @@
         <h2 id="libTitle"><%= movie.title %></h2>
       </header>
       <form action="/movie/<%=movie.movie_id%>?_method=DELETE" method="POST">
-        <button>Remove from Library</button>
+        <button id="libButton"  >Remove from Library</button>
       </form>
     </div>
     <% }) %>

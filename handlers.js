@@ -7,6 +7,7 @@ const superagent = require('superagent');
 const client = require('./database.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+
 // determines user state
 const logOutButton = { link: '/logout', status: 'Log Out'}
 const logInButton = {link: '/createAcc', status: 'Log In'}
@@ -155,11 +156,9 @@ const secureLogin = (request, response) => {
       console.log(err);
     })
 }
-
-
 const logOut = (request, response) => {
   delete request.session.user;
-  response.redirect('/', {login: logInButton});
+  response.redirect('/');
 }
 
 const changePassword = (request, response) => {

@@ -57,6 +57,7 @@ app.delete('/movie/:id', authorize, routeHandlers.deleteMovie);
 
 app.get('/aboutUs', routeHandlers.renderAboutUsPage);
 app.post('/newPassword', routeHandlers.changePassword);
+app.get('/logout', routeHandlers.logOut);
 // error handlers routes
 app.use('*', routeHandlers.notFoundHandler);
 app.use(routeHandlers.errorHandler);
