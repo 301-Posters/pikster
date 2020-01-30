@@ -77,7 +77,7 @@ run this command into your terminal:
 [Initial WireFrame & Domain Model](https://app.moqups.com/xOKlkPzC4H/view)  
 [Current Domain Model](https://drive.google.com/file/d/1zQCPy2Ws5GmuKEoA0r9dgQcKnn0nMJ30/view?usp=sharing)
 
-## Dependencies  
+## Our Dependencies  
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
@@ -90,3 +90,5 @@ run this command into your terminal:
 ## Resources
 Our API - [The Movie Database](https://www.themoviedb.org/documentation/api)  
 Custom Fonts - [Google Fonts](https://fonts.google.com/)  
+Image in Index - [Unsplash](https://unsplash.com/photos/evlkOfkQ5rE)  
+Password & Safety - [BCrypt](https://www.npmjs.com/package/bcrypt) and [Sessions](https://phppot.com/php/php-login-script-with-session/)  
