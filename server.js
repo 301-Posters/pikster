@@ -8,6 +8,8 @@ require('dotenv').config();
 const PORT = process.env.PORT || 3001;
 const session = require('express-session');
 const client = require('./database.js');
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
 
 
 client.on('error', err => console.error(err));
@@ -51,11 +53,11 @@ app.post('/login', routeHandlers.renderLoginPage);
 app.post('/securelogin', routeHandlers.secureLogin);
 
 //delete movie from users library
-app.delete('/movie', authorize, routeHandlers.deleteMovie);
+app.delete('/movie/:id', authorize, routeHandlers.deleteMovie);
 
-//change blacklist status for individual movie
-app.put('/update', authorize, routeHandlers.updateLibrary);
 app.get('/aboutUs', routeHandlers.renderAboutUsPage);
+app.post('/newPassword', routeHandlers.changePassword);
+app.get('/logout', routeHandlers.logOut);
 // error handlers routes
 app.use('*', routeHandlers.notFoundHandler);
 app.use(routeHandlers.errorHandler);
@@ -74,6 +76,3 @@ client.connect()
   .catch(err => console.log('Database failed to start!!!!!', err));
 
 
-// module.exports = {
-//   server: app
-// };

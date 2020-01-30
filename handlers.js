@@ -5,15 +5,22 @@
 
 const superagent = require('superagent');
 const client = require('./database.js');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+// determines user state
+const logOutButton = { link: '/logout', status: 'Log Out'}
+const logInButton = {link: '/createAcc', status: 'Log In'}
 
 const generateMovie = (request, response) => {
-  console.log(request.params);
   let key = process.env.MOVIE_API_KEY;
   superagent.get(`https://api.themoviedb.org/3/movie/${request.params.id}/similar?api_key=${key}&language=en-US&page=1`)
     .then(results => {
       // console.log(results.body);
       const responseObj = results.body.results.map(movie => new Movie(movie));
-      response.render('ejs/detail.ejs', { movies: responseObj });
+      const state = request.session.user ? logOutButton : logInButton;
+
+      response.render('ejs/detail.ejs', { movies: responseObj, login: state });
     })
     .catch(error => {
       console.error(error);
@@ -22,8 +29,9 @@ const generateMovie = (request, response) => {
 
 const createAcc = (request, response) => {
 
-  let message = request.query.error || 'Yay';
-  response.status(200).render('ejs/createacc.ejs', { message: message });
+  let message = request.query.error || 'Log In';
+  const state = request.session.user ? logOutButton : logInButton;
+  response.status(200).render('ejs/createacc.ejs', { message: message, login: state });
 
 
 }
@@ -62,7 +70,8 @@ const generateLibrary = (request, response) => {
           .then(results => {
             //remove the currentMovie from the session prior to rendering the view.
             delete request.session.currentMovie;
-            response.render('ejs/library.ejs', { library: results.rows })
+            const state = request.session.user ? logOutButton : logInButton;
+            response.render('ejs/library.ejs', { library: results.rows, login: state })
           })
       })
       .catch(err => {
@@ -72,7 +81,8 @@ const generateLibrary = (request, response) => {
     let sql = 'SELECT * from movies INNER JOIN movies_in_libraries ON movies.id = movies_in_libraries.movie_id WHERE $1 = movies_in_libraries.user_id;';
     client.query(sql, [request.session.user.id])
       .then(results => {
-        response.render('ejs/library.ejs', { library: results.rows })
+        const state = request.session.user ? logOutButton : logInButton;
+        response.render('ejs/library.ejs', { library: results.rows, login: state })
       })
   }
 }
@@ -83,47 +93,60 @@ const renderLoginPage = (request, response) => {
     //construct new Movie, assign to currentMovie
     response.redirect(`/library`)
   } else {
-    response.render('ejs/createAcc.ejs', { message: `Welcome!` });
+    const state = request.session.user ? logOutButton : logInButton;
+    response.render('ejs/createAcc.ejs', { message: `Welcome!`, login: state });
   }
 }
 
 const secureLogin = (request, response) => {
-
+  
   //Check database for their login credentials
-  let SQL = 'SELECT * FROM users WHERE username = $1 AND password = $2;';
-  let values = [request.body.user, request.body.password];
+  let SQL = 'SELECT * FROM users WHERE username = $1;';
+  let values = [request.body.user];
   client.query(SQL, values)
     .then(results => {
       let message =
         results.rows.length === 0 && !request.body.new ? 'Invalid%20Login' :
-          results.rows.length === 1 && request.body.new ? 'That%20Name%20Taken' : 'none';
+        results.rows.length === 1 && request.body.new ? 'That%20Name%20Taken' : 'Invalid%20Login';
 
 
       //if the database doesnt return anyone and the new account box was checked.
       if (results.rows.length === 0 && request.body.new) {
-        let sql = 'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id;';
-        let safeWords = [request.body.user, request.body.password];
-        client.query(sql, safeWords)
-          .then(results => {
-            request.session.user = {
-              id: results.rows[0].id,
-              username: request.body.username,
-              password: request.body.password
-            }
-            response.redirect('/library');
-          })
-          .catch(err => {
-            console.log(err);
+      
+        bcrypt.genSalt(saltRounds, function(err, salt) {
+          bcrypt.hash(request.body.password, salt, function(err, hash) {
+            let sql = 'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id;';
+            let safeWords = [request.body.user, hash];
+            client.query(sql, safeWords)
+              .then(results => {
+                request.session.user = {
+                  id: results.rows[0].id,
+                  username: request.body.username,
+                  password: hash
+                }
+                response.redirect('/library');
+              })
+              .catch(err => {
+                console.log(err);
+              })
+            })
           })
         //if the database returns a user and the new account box was NOT checked.
       } else if (results.rows.length === 1 && !request.body.new) {
-        request.session.user = {
-          id: results.rows[0].id,
-          username: results.rows[0].username,
-          password: results.rows[0].password
-        }
-        response.redirect('/library');
-
+        bcrypt.compare(request.body.password, results.rows[0].password)
+        .then(res => {
+          if (res) {
+            request.session.user = {
+              id: results.rows[0].id,
+              username: results.rows[0].username,
+              password: results.rows[0].password
+            }
+            response.redirect('/library');
+          } else {
+            response.redirect(`/createAcc?error=${message}`);
+          }
+        })
+        .catch(err => console.log(err));
         //if the user is not in the DB and the user does not want a new account
       } else {
         response.redirect(`/createAcc?error=${message}`);
@@ -133,19 +156,33 @@ const secureLogin = (request, response) => {
       console.log(err);
     })
 }
+const logOut = (request, response) => {
+  delete request.session.user;
+  response.redirect('/');
+}
+
+const changePassword = (request, response) => {
+  bcrypt.hash(request.body.newPassword, 10)
+  .then(hash => {
+    let sql = `UPDATE users set password = $1 WHERE username = $2;`;
+    let safeValues = [hash, request.session.user.username];
+    client.query(sql, safeValues)
+    request.session.user.password = hash
+    response.status(200).send('Success');
+  })
+}
 
 const renderAboutUsPage = (request, response) => {
-  response.status(200).render('ejs/aboutUs.ejs');
+  const state = request.session.user ? logOutButton : logInButton;
+  response.status(200).render('ejs/aboutUs.ejs', {login: state});
 }
 
 const deleteMovie = (request, response) => {
-  console.log('some stuff');
-
-}
-
-const updateLibrary = (request, response) => {
-  console.log('some stuff');
-
+  let sql = `DELETE FROM movies_in_libraries WHERE movie_id=$1;`;
+  let safeValue = [request.params.id];
+  client.query(sql, safeValue)
+    .then(() => response.redirect('/library'))
+    .catch(err => console.log(err));
 }
 
 
@@ -168,7 +205,8 @@ function getTrendingMovies(request, response) {
     .then(data => {
       const responseObj = data.body.results.map(movie => new Movie(movie));
       const responseMovies = responseObj.filter(movie => movie.title);
-      response.status(200).render('ejs/index.ejs', { movies: responseMovies });
+      const state = request.session.user ? logOutButton : logInButton;
+      response.status(200).render('ejs/index.ejs', { movies: responseMovies, login: state });
     })
     .catch(() => errorHandler('Something went wrong', response));
 }
@@ -193,10 +231,11 @@ module.exports = {
   generateLibrary: generateLibrary,
   secureLogin: secureLogin,
   deleteMovie: deleteMovie,
-  updateLibrary: updateLibrary,
   errorHandler: errorHandler,
   notFoundHandler: notFoundHandler,
   getTrendingMovies: getTrendingMovies,
   renderLoginPage: renderLoginPage,
-  renderAboutUsPage: renderAboutUsPage
+  renderAboutUsPage: renderAboutUsPage,
+  changePassword: changePassword,
+  logOut: logOut
 };
