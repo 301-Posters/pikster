@@ -29,7 +29,7 @@ const generateMovie = (request, response) => {
 
 const createAcc = (request, response) => {
 
-  let message = request.query.error || 'Yay';
+  let message = request.query.error || 'Log In';
   const state = request.session.user ? logOutButton : logInButton;
   response.status(200).render('ejs/createacc.ejs', { message: message, login: state });
 
@@ -107,7 +107,7 @@ const secureLogin = (request, response) => {
     .then(results => {
       let message =
         results.rows.length === 0 && !request.body.new ? 'Invalid%20Login' :
-        results.rows.length === 1 && request.body.new ? 'That%20Name%20Taken' : 'none';
+        results.rows.length === 1 && request.body.new ? 'That%20Name%20Taken' : 'Invalid%20Login';
 
 
       //if the database doesnt return anyone and the new account box was checked.
@@ -162,13 +162,13 @@ const logOut = (request, response) => {
 }
 
 const changePassword = (request, response) => {
-
   bcrypt.hash(request.body.newPassword, 10)
   .then(hash => {
     let sql = `UPDATE users set password = $1 WHERE username = $2;`;
     let safeValues = [hash, request.session.user.username];
     client.query(sql, safeValues)
     request.session.user.password = hash
+    response.status(200).send('Success');
   })
 }
 
