@@ -8,7 +8,7 @@ A fun, simple, and user-specific application that makes movie recommendations ba
 2. The user profile will be stored in a database
 3. Once a preference is selected they will be brought to a movie page where a list of movie recommendations will show.
 4. When the user clicks on a movie, if already logged in, the movie will be added to their own personal movie library as well as rendering previously added movies. If user does not have a login, they will be prompted to create a username and password.
-5. When navigating away from this page the page is saved in the database
+5. When navigating away from this page the movie is saved in the database
 6. When the about us link is pressed the user is brought to the About Us page
 7. The user can then go back to the home page to change their preferences and or get a new recommendation for a movie.
 8.  The footer link can be clicked which is a link to the github page
@@ -26,7 +26,7 @@ A fun, simple, and user-specific application that makes movie recommendations ba
 - [LinkedIn](https://www.linkedin.com/in/allyson-reyes/)
 - [GitHub](https://github.com/areyes986)
 ## How to Run this App  
-1. You can access this app from the deployed webpage,https://piksterbooks.herokuapp.com/
+1. You can access this app from the deployed webpage,https://pikstermovies.herokuapp.com/
 
 2. **Git Clone**  
 In our [GitHub repo](https://github.com/301-Posters/pikster), 
@@ -34,14 +34,21 @@ run this command into your terminal:
 `git clone https://github.com/301-Posters/pikster.git`
 
     **Packages**  
-    Once cloned down and pulled up,
-    run `npm i` in your terminal to install all the dependencies.
-
+    Once you have it cloned down run `npm i` in your terminal to install all the dependencies.
+    
+    Create a file in the project root called `.env` and add the following lines at the top:
+    
+    ```
+    PORT=3000
+    DATABASE_URL=<enter your TMDb API key here>
+    ```
+    
+    **Database**  
+    Assuming you have *PostgreSQL*, enter `psql` into your terminal and enter `CREATE DATABASE pikster`.
+    Exit the psql shell and run `psql -d pikster -f schema.sql`.
+    
     **Nodemon**  
     Still in your terminal enter `nodemon` which will start the server and run the code. 
-
-    **Database**  
-    Assuming you have *PostgreSQL*, enter `psql` into your terminal and enter `CREATE DATABASE pikster`
 
     **Browser**  
     In your browsers address bar, enter `localhost:3000`
@@ -78,11 +85,14 @@ run this command into your terminal:
 [Current Domain Model](https://drive.google.com/file/d/1zQCPy2Ws5GmuKEoA0r9dgQcKnn0nMJ30/view?usp=sharing)
 
 ## Our Dependencies  
+
+    "bcrypt": "^3.0.7",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "method-override": "^3.0.0",
     "pg": "^7.17.1",
     "superagent": "^5.2.1"
 
@@ -91,4 +101,4 @@ run this command into your terminal:
 Our API - [The Movie Database](https://www.themoviedb.org/documentation/api)  
 Custom Fonts - [Google Fonts](https://fonts.google.com/)  
 Image in Index - [Unsplash](https://unsplash.com/photos/evlkOfkQ5rE)  
-Password & Safety - [BCrypt](https://www.npmjs.com/package/bcrypt) and [Sessions](https://phppot.com/php/php-login-script-with-session/)  
+Password & Safety - [BCrypt](https://www.npmjs.com/package/bcrypt) and [Express-sessions](https://www.npmjs.com/package/express-session)  
