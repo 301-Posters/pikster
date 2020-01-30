@@ -1,5 +1,7 @@
 body {
 width: 100%;
+min-width: 360px;
+
  }
 
  main {
@@ -11,14 +13,17 @@ width: 100%;
 
 .bodyBackground{
 
-  background-color: rgb(32, 32, 32);
+  background-image: linear-gradient(#000000, #000000,#554971, #63768D, #8AC6D0, #B8F3FF);
 }
-/* //test comment to see if commits are working
+
+
+
 .innerContainer{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   -moz-box-flexgroup: inherit;
+  /* flex-direction: row; */
   flex-direction: row;
   font-style: italic;
   width: 100%;
@@ -26,23 +31,25 @@ width: 100%;
   max-width: 100%;
   min-width: 50%;
   height: auto;
-  margin-top: 200px;
+  margin-top: 50px;
   border-color:  black;
   align-items: flex-start;
-   flex-flow: wrap;
+  flex-flow: wrap;
+  align-content: center;
 }
-
 .flex-container{
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: row;
-  width: 800px;
-  /* max-width: auto;
+  margin-top: 50px;
+  max-width: 350px;
   min-height: 300px;
-  padding-top: 80px;
   flex-flow: row wrap;
+  padding-left: 25px;
+  padding-right: 50px; 
 
 }
+
+
+/* //test comment to see if commits are working
+
 .background img{
   margin-top: -100px;
 }
@@ -180,6 +187,8 @@ transition-duration: 9ms;
 
 #notHeaderH1 {
   margin-top: 100px;
+  color: ivory;
+  font-size: 2em;
 }
 .curtain {
   background-image: url("/img/chairs.jpg");
