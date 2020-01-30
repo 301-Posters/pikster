@@ -15,7 +15,8 @@
   margin: 10px;
   padding: 20px;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
   background-color: rgb(63, 65, 77);
   border-radius: 10px;
@@ -35,4 +36,15 @@
   width: 100%;
   text-align: center;
   color: ivory;
+}
+
+.scrollbox {
+  overflow: scroll;
+  height: 80px;
+
+}
+/* button for adding stuff to the library */
+.library-adder {
+  border-radius: 5px;
+  padding: 5px;
 }

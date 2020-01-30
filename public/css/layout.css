@@ -10,7 +10,8 @@ width: 100%;
  }
 
 .bodyBackground{
-  background-image: linear-gradient(#d4dcbd, #c2cdbf, rgb(162, 174, 172), rgb(144, 167, 174), rgb(66, 96, 140));
+
+  background-color: rgb(32, 32, 32);
 }
 /* //test comment to see if commits are working
 .innerContainer{
@@ -133,24 +134,37 @@ footer {
   left: 0px;
   width: 100%;
   position: fixed;
-  background-color: #d4dcbd;
+  background-color: rgb(0, 0, 0);
   text-align: center;
   margin: auto;
   z-index: 10;
   display: flex;
   justify-content: center;
+  /* background-image: url("/img/chairs.jpg"); */
+  /* height: 100%; */
 }
 
 .headerNav {
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
+  /* top: -80px; */
 }
 
 h1 {
   margin-left: 10px;
   font-size: 3em;
+  color: ivory;
 
+}
+
+.header a {
+  color: rgb(223, 223, 215);
+  text-decoration: none;
+  font-size: 1.5em;
+  margin-inline-start: 30px;
+  
 }
 
 /* #headerButton {
@@ -163,3 +177,10 @@ box-shadow: 0px clear;
 transform: translateY(5px);
 transition-duration: 9ms;
 } */
+
+
+.curtain {
+  background-image: url("/img/chairs.jpg");
+  height: 100%;
+  width: 100%;
+}
