@@ -55,7 +55,7 @@ app.delete('/movie', authorize, routeHandlers.deleteMovie);
 
 //change blacklist status for individual movie
 app.put('/update', authorize, routeHandlers.updateLibrary);
-
+app.get('/aboutUs', routeHandlers.renderAboutUsPage);
 // error handlers routes
 app.use('*', routeHandlers.notFoundHandler);
 app.use(routeHandlers.errorHandler);
