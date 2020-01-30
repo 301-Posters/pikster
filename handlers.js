@@ -83,7 +83,7 @@ const renderLoginPage = (request, response) => {
     //construct new Movie, assign to currentMovie
     response.redirect(`/library`)
   } else {
-    response.render('ejs/createAcc.ejs', { message: `Welcome` });
+    response.render('ejs/createAcc.ejs', { message: `Welcome!` });
   }
 }
 
