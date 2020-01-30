@@ -55,9 +55,8 @@ app.post('/securelogin', routeHandlers.secureLogin);
 //delete movie from users library
 app.delete('/movie/:id', authorize, routeHandlers.deleteMovie);
 
-//change blacklist status for individual movie
-app.put('/update', authorize, routeHandlers.updateLibrary);
 app.get('/aboutUs', routeHandlers.renderAboutUsPage);
+app.post('/newPassword', routeHandlers.changePassword);
 // error handlers routes
 app.use('*', routeHandlers.notFoundHandler);
 app.use(routeHandlers.errorHandler);

@@ -123,7 +123,8 @@ const secureLogin = (request, response) => {
           })
         //if the database returns a user and the new account box was NOT checked.
       } else if (results.rows.length === 1 && !request.body.new) {
-        bcrypt.compare(request.body.password, results.rows[0].password).then(res => {
+        bcrypt.compare(request.body.password, results.rows[0].password)
+        .then(res => {
           if (res) {
             request.session.user = {
               id: results.rows[0].id,
@@ -135,7 +136,7 @@ const secureLogin = (request, response) => {
             response.redirect(`/createAcc?error=${message}`);
           }
         })
-
+        .catch(err => console.log(err));
         //if the user is not in the DB and the user does not want a new account
       } else {
         response.redirect(`/createAcc?error=${message}`);
@@ -144,6 +145,17 @@ const secureLogin = (request, response) => {
     .catch(err => {
       console.log(err);
     })
+}
+
+const changePassword = (request, response) => {
+
+  bcrypt.hash(request.body.newPassword, 10)
+  .then(hash => {
+    let sql = `UPDATE users set password = $1 WHERE username = $2;`;
+    let safeValues = [hash, request.session.user.username];
+    client.query(sql, safeValues)
+    request.session.user.password = hash
+  })
 }
 
 const renderAboutUsPage = (request, response) => {
@@ -156,11 +168,6 @@ const deleteMovie = (request, response) => {
   client.query(sql, safeValue)
     .then(results => response.redirect('/library'))
     .catch(err => console.log(err));
-}
-
-const updateLibrary = (request, response) => {
-  console.log('some stuff');
-
 }
 
 
@@ -208,10 +215,10 @@ module.exports = {
   generateLibrary: generateLibrary,
   secureLogin: secureLogin,
   deleteMovie: deleteMovie,
-  updateLibrary: updateLibrary,
   errorHandler: errorHandler,
   notFoundHandler: notFoundHandler,
   getTrendingMovies: getTrendingMovies,
   renderLoginPage: renderLoginPage,
-  renderAboutUsPage: renderAboutUsPage
+  renderAboutUsPage: renderAboutUsPage,
+  changePassword: changePassword
 };
