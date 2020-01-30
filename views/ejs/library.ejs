@@ -17,42 +17,26 @@
 <body class="bodyBackground">
 
 
-  <header class="header">
-    <h1>301 Project name</h1>
-    <div>User Name</div>
-    <button class="nav" id="switchUser" type="button">Switch User</button>
-    <button class="nav" id="library" type="button">Library</button>
-    <button class="nav" id="aboutUs" type="button">About Us</button>
-
-  </header>
+  <%- include('partials/header') %>
 
 
 
-  <main ></main>>
-    <div class="flex-container flex-container">
-      <div>
-        <!-- <img src="../public/img/bookshelf.jpg" class="bookshelf" id="bookshelf" width="700px" height="700 " alt="minus"> -->
-        <div>
-          <!-- <img src="../public/img/book1.jpg" class="book1" id="userbook1" width="" height="" alt="plus"> -->
-        </div>
-      </div>
-     
-      
+  <main>
+    <h1>Your library!</h1>
+
+  <section class="tile-container">
+    <% library.forEach(movie => { %>
+    <div class="movie-tile" style="background-image: url(<%=movie.image_url%>);" form="submit<%=movie.movieId%>">
+      <header>
+        <h2><%= movie.title %></h2>
+      </header>
+      <form action="/movie?_method=DELETE" method="POST">
+        <button>Remove from Library</button>
+      </form>
     </div>
-    <section class="tile-container">
-      <% library.forEach(movie => { %>
-        <div class="movie-tile">
-          <header>
-            <h2><%= movie.title %></h2>
-          </header>
-          <img src="<%=movie.image_url%>" alt="">
-            <form action="/movie?_method=DELETE" method="POST">
-              <button>Remove from Library</button>
-          </form>
-        </div>
-      <% }) %>
-    </section>
-    
+    <% }) %>
+  </section>
+
   </main>
   <footer>
     <h1>Team Name Here</h1>

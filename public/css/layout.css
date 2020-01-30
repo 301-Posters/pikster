@@ -184,3 +184,36 @@ transition-duration: 9ms;
   height: 100%;
   width: 100%;
 }
+
+#accSection {
+  margin-top: 100px;
+}
+
+#accH2 {
+  text-align: center;
+  margin: 30px;
+  color: ivory;
+}
+
+#accForm input {
+  text-align: center;
+  margin: 30px;
+  font-size: 2em;
+}
+
+#accInput {
+  color: ivory;
+}
+
+#accCheckButton{
+  color: ivory;
+  margin: 15px;
+  font-size: 1.5em;
+}
+
+#accButton {
+  font-size: 1em;
+  border-radius: 5px;;
+  padding: 5px;
+  margin: 30px;
+}
