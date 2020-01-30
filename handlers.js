@@ -7,6 +7,9 @@ const superagent = require('superagent');
 const client = require('./database.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+// determines user state
+const logOutButton = { link: '/logout', status: 'Log Out'}
+const logInButton = {link: '/createAcc', status: 'Log In'}
 
 const generateMovie = (request, response) => {
   let key = process.env.MOVIE_API_KEY;
@@ -14,7 +17,9 @@ const generateMovie = (request, response) => {
     .then(results => {
       // console.log(results.body);
       const responseObj = results.body.results.map(movie => new Movie(movie));
-      response.render('ejs/detail.ejs', { movies: responseObj });
+      const state = request.session.user ? logOutButton : logInButton;
+
+      response.render('ejs/detail.ejs', { movies: responseObj, login: state });
     })
     .catch(error => {
       console.error(error);
@@ -24,7 +29,8 @@ const generateMovie = (request, response) => {
 const createAcc = (request, response) => {
 
   let message = request.query.error || 'Yay';
-  response.status(200).render('ejs/createacc.ejs', { message: message });
+  const state = request.session.user ? logOutButton : logInButton;
+  response.status(200).render('ejs/createacc.ejs', { message: message, login: state });
 
 
 }
@@ -63,7 +69,8 @@ const generateLibrary = (request, response) => {
           .then(results => {
             //remove the currentMovie from the session prior to rendering the view.
             delete request.session.currentMovie;
-            response.render('ejs/library.ejs', { library: results.rows })
+            const state = request.session.user ? logOutButton : logInButton;
+            response.render('ejs/library.ejs', { library: results.rows, login: state })
           })
       })
       .catch(err => {
@@ -73,7 +80,8 @@ const generateLibrary = (request, response) => {
     let sql = 'SELECT * from movies INNER JOIN movies_in_libraries ON movies.id = movies_in_libraries.movie_id WHERE $1 = movies_in_libraries.user_id;';
     client.query(sql, [request.session.user.id])
       .then(results => {
-        response.render('ejs/library.ejs', { library: results.rows })
+        const state = request.session.user ? logOutButton : logInButton;
+        response.render('ejs/library.ejs', { library: results.rows, login: state })
       })
   }
 }
@@ -84,7 +92,8 @@ const renderLoginPage = (request, response) => {
     //construct new Movie, assign to currentMovie
     response.redirect(`/library`)
   } else {
-    response.render('ejs/createAcc.ejs', { message: `Welcome!` });
+    const state = request.session.user ? logOutButton : logInButton;
+    response.render('ejs/createAcc.ejs', { message: `Welcome!`, login: state });
   }
 }
 
@@ -147,6 +156,12 @@ const secureLogin = (request, response) => {
     })
 }
 
+
+const logOut = (request, response) => {
+  delete request.session.user;
+  response.redirect('/', {login: logInButton});
+}
+
 const changePassword = (request, response) => {
 
   bcrypt.hash(request.body.newPassword, 10)
@@ -159,7 +174,8 @@ const changePassword = (request, response) => {
 }
 
 const renderAboutUsPage = (request, response) => {
-  response.status(200).render('ejs/aboutUs.ejs');
+  const state = request.session.user ? logOutButton : logInButton;
+  response.status(200).render('ejs/aboutUs.ejs', {login: state});
 }
 
 const deleteMovie = (request, response) => {
@@ -190,7 +206,8 @@ function getTrendingMovies(request, response) {
     .then(data => {
       const responseObj = data.body.results.map(movie => new Movie(movie));
       const responseMovies = responseObj.filter(movie => movie.title);
-      response.status(200).render('ejs/index.ejs', { movies: responseMovies });
+      const state = request.session.user ? logOutButton : logInButton;
+      response.status(200).render('ejs/index.ejs', { movies: responseMovies, login: state });
     })
     .catch(() => errorHandler('Something went wrong', response));
 }
@@ -220,5 +237,6 @@ module.exports = {
   getTrendingMovies: getTrendingMovies,
   renderLoginPage: renderLoginPage,
   renderAboutUsPage: renderAboutUsPage,
-  changePassword: changePassword
+  changePassword: changePassword,
+  logOut: logOut
 };
