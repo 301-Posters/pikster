@@ -178,7 +178,9 @@ transform: translateY(5px);
 transition-duration: 9ms;
 } */
 
-
+#notHeaderH1 {
+  margin-top: 100px;
+}
 .curtain {
   background-image: url("/img/chairs.jpg");
   background-position: bottom -80px center;
@@ -217,6 +219,7 @@ transition-duration: 9ms;
   border-radius: 5px;;
   padding: 5px;
   margin: 30px;
+}
 
 @media(min-width: 700px) {
 
