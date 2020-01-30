@@ -16,23 +16,24 @@
 </head>
 
 <body class="bodyBackground">
- <%- include('partials/header') %>
+  <%- include('partials/header') %>
 
- <div class="curtain"></div>
+  <div class="curtain"></div>
   <main>
     <!--main container that holds all the tiles-->
     <section class="tile-container">
 
       <!-- each tile.-->
       <% movies.forEach(movie => { %>
-      <button id="<%=movie.movieId%>" class="movie-tile" style="background-image: url(<%=movie.image_url%>);" form="submit<%=movie.movieId%>">
+      <button id="<%=movie.movieId%>" class="movie-tile" style="background-image: url(<%=movie.image_url%>);"
+        form="submit<%=movie.movieId%>">
         <header>
           <h2><%= movie.title %></h2>
         </header>
         <form action="/generateMovie/<%=movie.movieId%>" method="POST" id="submit<%=movie.movieId%>">
         </form>
-      </div>
-      <% }) %>
+        </div>
+        <% }) %>
 
     </section>
 
@@ -47,6 +48,9 @@
 
 
 </body>
-
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="/JS/header-color.js">
+</script>
 
 </html>
