@@ -146,7 +146,7 @@ footer {
 
 .headerNav {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   position: relative;
   /* top: -80px; */
@@ -181,6 +181,16 @@ transition-duration: 9ms;
 
 .curtain {
   background-image: url("/img/chairs.jpg");
+  background-position: bottom -80px center;
   height: 100%;
   width: 100%;
+}
+
+
+@media(min-width: 700px) {
+
+ .headerNav {
+   flex-direction: row;
+ }
+ 
 }
