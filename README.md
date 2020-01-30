@@ -26,7 +26,7 @@ A fun, simple, and user-specific application that makes movie recommendations ba
 - [LinkedIn](https://www.linkedin.com/in/allyson-reyes/)
 - [GitHub](https://github.com/areyes986)
 ## How to Run this App  
-1. You can access this app from the deployed webpage,HEROKU DEPLOYED LINK HERE
+1. You can access this app from the deployed webpage,https://piksterbooks.herokuapp.com/
 
 2. **Git Clone**  
 In our [GitHub repo](https://github.com/301-Posters/pikster), 

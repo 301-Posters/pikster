@@ -15,25 +15,7 @@
 </head>
 
 <body class="bodyBackground">
-
-  <header class="header" >
-    <h1>301 Project name</h1>
-    <div>User Name</div>
-    <div>
-    <div class="button">
-     <!-- image from  http://www.pixeljoint.com/files/icons/full/so_house.gif -->
-      <img src="../../public/img/" class="homeButton">
-
-
-      <!-- <button src="../public/img/homeIcon.gif" class="homeButton" id="tier1p1minus" width="100px" height="100 " type="button"> -->
-
-      <!-- <button class="homeButton" type="button"><img src="../public/img/homeIcon.gif"</button> -->
-
-    <!-- <button class="button1" id="" type="button">Switch User</button> -->
-
-    <!-- image from https://cdn.dribbble.com/users/720472/screenshots/2020099/switch3.gif -->
-    <!-- <img src="./img/switchUser.gif" class="switchUser"> -->
-
+  <%- include('partials/header') %>
 
 
     <button class="button2" id="" type="button">Library</button>
@@ -44,10 +26,16 @@
   <div class="innerContainer">
     <div class="flex-container">
       <div class="background">
-        <img src="./img/deadpolreru.png" height="400px" z-index="1" >
+        <img src="./img/andrew.png" height="400px" z-index="1" >
       </div>
         <h1 id="foreGround"></h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non eros vel quam laoreet sodales. Nunc tincidunt, leo gravida venenatis aliquam, lectus velit pretium lorem, non gravida ligula lacus eu tortor. Cras in ipsum eu erat viverra dignissim quis non lacus. Maecenas ut facilisis mi, ultrices ullamcorper ex. Mauris in leo posuere urna placerat rhoncus nec sit amet dui. Sed quis tellus ipsum. Donec mattis dictum leo, quis sollicitudin neque interdum quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+        <p>Amateur snowboarder, video game philanthropist, cheese connoisseur, software developer, and yoga enthusiast. Master of none. </p>
+        <a href="https://www.linkedin.com/in/andrewkyllo/">
+          <img src="./img/LI-In-Bug.png" width="50px"></a>
+        <a href="https://github.com/kyllo34">
+          <img src="./img/Octocat.png" width="50px"></a>
+  
+  
       </div>
     <div class="flex-container">
       <div class="background">
@@ -55,7 +43,13 @@
       <img src="./img/tyler.png" height="400px">
       <h1></h1>
       </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non eros vel quam laoreet sodales. Nunc tincidunt, leo gravida venenatis aliquam, lectus velit pretium lorem, non gravida ligula lacus eu tortor. Cras in ipsum eu erat viverra dignissim quis non lacus. Maecenas ut facilisis mi, ultrices ullamcorper ex. Mauris in leo posuere urna placerat rhoncus nec sit amet dui. Sed quis tellus ipsum. Donec mattis dictum leo, quis sollicitudin neque interdum quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+      <p>Tyler is a full-stack javascript web developer with a background in the marine oil transportation industry. As a full stack developer, he is comfortable on both ends of a project, and loves collaborating and programming in pairs. He enjoys coordinating ski vacations among friends, evening sails on the sound, and building model lighter than air vehicles. </p>
+
+      <a href="https://www.linkedin.com/in/tylersayvetz/">
+        <img src="./img/LI-In-Bug.png" width="50px"></a>
+      <a href="https://github.com/tylersayvetz">
+        <img src="./img/Octocat.png" width="50px"></a>
+      
     </div>
     <div class="flex-container">
       <div class="background">
@@ -64,8 +58,11 @@
       <h1></h1>
     </div>
 
-      <p>Recently moved from Oahu. Went to University of Hawaii at Manoa with a background in dentistry. Majored in Psychology. Background in dental.
-      wow nvm dont use that, i should change it lol</p>
+      <p>Recently moved from Oahu. Went to University of Hawaii at Manoa with a background in dentistry. Moved to Seattle in hopes of becoming a hygienist but moved from that idea after wanted to take on the world of tech. </p>
+      <a href="https://www.linkedin.com/in/allyson-reyes/">
+        <img src="./img/LI-In-Bug.png" width="50px"></a>
+      <a href="https://github.com/areyes986">
+        <img src="./img/Octocat.png" width="50px"></a>
       
     </div>
     <div class="flex-container">
@@ -73,7 +70,11 @@
       <img src="./img/harlen.png" height="400px">
       <h1></h1>
     </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non eros vel quam laoreet sodales. Nunc tincidunt, leo gravida venenatis aliquam, lectus velit pretium lorem, non gravida ligula lacus eu tortor. Cras in ipsum eu erat viverra dignissim quis non lacus. Maecenas ut facilisis mi, ultrices ullamcorper ex. Mauris in leo posuere urna placerat rhoncus nec sit amet dui. Sed quis tellus ipsum. Donec mattis dictum leo, quis sollicitudin neque interdum quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+      <p>I am a Software developer with a background in Military Intelligence. I spent my seven years of service in human intelligence analysis, and counter intelligence analysis. I  decided to leave service honorably and pursue a career where I can continue to make a meaningful impact by developing software to help assist in training professionals in the industrial and medical fields through the use of AR/VR. </p>
+      <a href="https://www.linkedin.com/in/harlen-lopez-ab9349aa/">
+        <img src="./img/LI-In-Bug.png" width="50px"></a>
+      <a href="https://github.com/harlenlopez">
+        <img src="./img/Octocat.png" width="50px" ></a>
   </div>
   </div>
 </div>
@@ -84,11 +85,8 @@
 
     
   </main>
-  <footer>
-    <h2>Team Name Here</h2>
-    <img src="../public/img/Octocat.png" width="35px">
-    <h2>https://github.com/301-Posters</h2>
-  </footer>
+    <%- include('partials/footer') %>
+
 
 
 </body>
