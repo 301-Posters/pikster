@@ -174,7 +174,7 @@ const changePassword = (request, response) => {
 
 const renderAboutUsPage = (request, response) => {
   const state = request.session.user ? logOutButton : logInButton;
-  response.status(200).render('ejs/aboutUs.ejs', {login: state});
+  response.status(200).render('ejs/aboutus.ejs', {login: state});
 }
 
 const deleteMovie = (request, response) => {
