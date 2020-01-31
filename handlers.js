@@ -10,7 +10,7 @@ const saltRounds = 10;
 
 // determines user state
 const logOutButton = { link: '/logout', status: 'Log Out'}
-const logInButton = {link: '/createAcc', status: 'Log In'}
+const logInButton = {link: '/createacc', status: 'Log In'}
 
 const generateMovie = (request, response) => {
   let key = process.env.MOVIE_API_KEY;
@@ -94,7 +94,7 @@ const renderLoginPage = (request, response) => {
     response.redirect(`/library`)
   } else {
     const state = request.session.user ? logOutButton : logInButton;
-    response.render('ejs/createAcc.ejs', { message: `Welcome!`, login: state });
+    response.render('ejs/createacc.ejs', { message: `Welcome!`, login: state });
   }
 }
 
@@ -143,13 +143,13 @@ const secureLogin = (request, response) => {
             }
             response.redirect('/library');
           } else {
-            response.redirect(`/createAcc?error=${message}`);
+            response.redirect(`/createacc?error=${message}`);
           }
         })
         .catch(err => console.log(err));
         //if the user is not in the DB and the user does not want a new account
       } else {
-        response.redirect(`/createAcc?error=${message}`);
+        response.redirect(`/createacc?error=${message}`);
       }
     })
     .catch(err => {
