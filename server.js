@@ -55,7 +55,7 @@ app.post('/securelogin', routeHandlers.secureLogin);
 //delete movie from users library
 app.delete('/movie/:id', authorize, routeHandlers.deleteMovie);
 
-app.get('/aboutUs', routeHandlers.renderAboutUsPage);
+app.get('/aboutus', routeHandlers.renderAboutUsPage);
 app.post('/newPassword', routeHandlers.changePassword);
 app.get('/logout', routeHandlers.logOut);
 // error handlers routes
