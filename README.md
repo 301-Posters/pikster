@@ -3,6 +3,7 @@
 A fun, simple, and user-specific application that makes movie recommendations based on the users movie preferences. The user will also be able to create their own login profile to add movies their own personal queue list library.
 
 
+
 ## Project Detail
 1. The main page will display images/preferences and user login
 2. The user profile will be stored in a database
@@ -98,6 +99,7 @@ run this command into your terminal:
 
 
 ## Resources
+
 Our API - [The Movie Database](https://www.themoviedb.org/documentation/api)  
 Custom Fonts - [Google Fonts](https://fonts.google.com/)  
 Image in Index - [Unsplash](https://unsplash.com/photos/evlkOfkQ5rE)  
