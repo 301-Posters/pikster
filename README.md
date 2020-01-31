@@ -101,6 +101,10 @@ run this command into your terminal:
 ## Resources
 
 Our API - [The Movie Database](https://www.themoviedb.org/documentation/api)  
+
+```
+`https://api.themoviedb.org/3/movie/${query params}/similar?api_key=${key}&language=en-US&page=1`
+```
 Custom Fonts - [Google Fonts](https://fonts.google.com/)  
 Image in Index - [Unsplash](https://unsplash.com/photos/evlkOfkQ5rE)  
 Password & Safety - [BCrypt](https://www.npmjs.com/package/bcrypt) and [Express-sessions](https://www.npmjs.com/package/express-session)  
